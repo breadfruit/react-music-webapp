@@ -2,15 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { SliderContainer } from './style';
 import "swiper/dist/css/swiper.css";
 import Swiper from "swiper";
-import list from '../list';
 
-function Slider (props) {
-  const [sliderSwiper, setSliderSwiper] = useState (null);
+function Slider(props) {
+  const [sliderSwiper, setSliderSwiper] = useState(null);
   const { bannerList } = props;
 
-  useEffect (() => {
-    if (bannerList.length && !sliderSwiper){
-        let newSliderSwiper = new Swiper(".slider-container", {
+  useEffect(() => {
+    if(bannerList.length && !sliderSwiper){
+        let sliderSwiper = new Swiper(".slider-container", {
           loop: true,
           autoplay: {
             delay: 3000,
@@ -18,17 +17,17 @@ function Slider (props) {
           },
           pagination: {el:'.swiper-pagination'},
         });
-        setSliderSwiper(newSliderSwiper);
+        console.log();
+        setSliderSwiper(sliderSwiper);
     }
-  }, [bannerList.length, sliderSwiper]);
-  
+  }, [bannerList.length, sliderSwiper])
   return (
     <SliderContainer>
-        <div className="before"></div>
+      <div className="before"></div>
       <div className="slider-container">
         <div className="swiper-wrapper">
           {
-            bannerList.map (slider => {
+            bannerList.map(slider => {
               return (
                 <div className="swiper-slide" key={slider.imageUrl}>
                   <div className="slider-nav">
@@ -46,42 +45,4 @@ function Slider (props) {
 }
 
 
-
-function Slider1 (props) {
-    const [sliderSwiper, setSliderSwiper] = useState(null);
-    const {bannerList} = props;
-
-    useEffect(() => {
-        if(bannerList.length && !sliderSwiper) {
-            let newSliderSwiper = new Swiper('.slider-container', {
-                loop: true,
-                autoplay: {
-                    delay: 3000,
-                    disableOnInteraction: false,
-                },
-                pagination: {el: ".swiper-pagination"}
-            });
-            setSliderSwiper(newSliderSwiper)
-        }
-    })
-
-
-    return (
-        <SliderContainer>
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    {
-                        bannerList.map(sider => {
-                            return (
-                                <div className={swiper-slide} key={slider.imageUrl}> 
-                                    <image src={sider.imageUrl} width="100%" height="100%" alt="推荐"></image>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            </div>
-        </SliderContainer>
-    )
-}
-export default React.memo (Slider);
+export default React.memo(Slider);

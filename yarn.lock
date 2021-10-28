@@ -1182,6 +1182,74 @@
   "resolved" "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   "version" "0.2.3"
 
+"@better-scroll/core@^2.0.0-beta.10", "@better-scroll/core@^2.4.2":
+  "integrity" "sha1-5pRwAS15kjoYA0w+STFyD7sG6uU="
+  "resolved" "https://registry.nlark.com/@better-scroll/core/download/@better-scroll/core-2.4.2.tgz?cache=0&sync_timestamp=1627912679131&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40better-scroll%2Fcore%2Fdownload%2F%40better-scroll%2Fcore-2.4.2.tgz"
+  "version" "2.4.2"
+  dependencies:
+    "@better-scroll/shared-utils" "^2.4.2"
+
+"@better-scroll/mouse-wheel@^2.0.0-beta.10":
+  "integrity" "sha1-3qcKYNwqN5XvatVp0t6ltMfpr0w="
+  "resolved" "https://registry.nlark.com/@better-scroll/mouse-wheel/download/@better-scroll/mouse-wheel-2.4.2.tgz?cache=0&sync_timestamp=1627913709051&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40better-scroll%2Fmouse-wheel%2Fdownload%2F%40better-scroll%2Fmouse-wheel-2.4.2.tgz"
+  "version" "2.4.2"
+  dependencies:
+    "@better-scroll/core" "^2.4.2"
+
+"@better-scroll/observe-dom@^2.0.0-beta.10":
+  "integrity" "sha1-zB5tgqj1NSXCgsmkvOpdG+jCHJU="
+  "resolved" "https://registry.nlark.com/@better-scroll/observe-dom/download/@better-scroll/observe-dom-2.4.2.tgz?cache=0&sync_timestamp=1627912476418&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40better-scroll%2Fobserve-dom%2Fdownload%2F%40better-scroll%2Fobserve-dom-2.4.2.tgz"
+  "version" "2.4.2"
+  dependencies:
+    "@better-scroll/core" "^2.4.2"
+
+"@better-scroll/pull-down@^2.0.0-beta.10":
+  "integrity" "sha1-a5iyi9c+m2lLCFepxzh55wM5y5Y="
+  "resolved" "https://registry.nlark.com/@better-scroll/pull-down/download/@better-scroll/pull-down-2.4.2.tgz"
+  "version" "2.4.2"
+  dependencies:
+    "@better-scroll/core" "^2.4.2"
+
+"@better-scroll/pull-up@^2.0.0-beta.10":
+  "integrity" "sha1-JTV87ve6x1IJMPBjGJa2OhD4Km8="
+  "resolved" "https://registry.nlark.com/@better-scroll/pull-up/download/@better-scroll/pull-up-2.4.2.tgz?cache=0&sync_timestamp=1627912680151&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40better-scroll%2Fpull-up%2Fdownload%2F%40better-scroll%2Fpull-up-2.4.2.tgz"
+  "version" "2.4.2"
+  dependencies:
+    "@better-scroll/core" "^2.4.2"
+
+"@better-scroll/scroll-bar@^2.0.0-beta.10":
+  "integrity" "sha1-JXhWodon1l64mawm8BBgr7+AC9s="
+  "resolved" "https://registry.nlark.com/@better-scroll/scroll-bar/download/@better-scroll/scroll-bar-2.4.2.tgz?cache=0&sync_timestamp=1627912683621&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40better-scroll%2Fscroll-bar%2Fdownload%2F%40better-scroll%2Fscroll-bar-2.4.2.tgz"
+  "version" "2.4.2"
+  dependencies:
+    "@better-scroll/core" "^2.4.2"
+
+"@better-scroll/shared-utils@^2.4.2":
+  "integrity" "sha1-GsXJdJVycJOiKoAJVgeV3V48GNo="
+  "resolved" "https://registry.nlark.com/@better-scroll/shared-utils/download/@better-scroll/shared-utils-2.4.2.tgz"
+  "version" "2.4.2"
+
+"@better-scroll/slide@^2.0.0-beta.10":
+  "integrity" "sha1-AkUorldRai7pm+o0Y4FYnk5qA5w="
+  "resolved" "https://registry.nlark.com/@better-scroll/slide/download/@better-scroll/slide-2.4.2.tgz?cache=0&sync_timestamp=1627912685136&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40better-scroll%2Fslide%2Fdownload%2F%40better-scroll%2Fslide-2.4.2.tgz"
+  "version" "2.4.2"
+  dependencies:
+    "@better-scroll/core" "^2.4.2"
+
+"@better-scroll/wheel@^2.0.0-beta.10":
+  "integrity" "sha1-DddLA1meAagtVdKfbcrXqKUDvXU="
+  "resolved" "https://registry.nlark.com/@better-scroll/wheel/download/@better-scroll/wheel-2.4.2.tgz"
+  "version" "2.4.2"
+  dependencies:
+    "@better-scroll/core" "^2.4.2"
+
+"@better-scroll/zoom@^2.0.0-beta.10":
+  "integrity" "sha1-wmwt8zEu11sx8CA8Xy5hgavAbF4="
+  "resolved" "https://registry.nlark.com/@better-scroll/zoom/download/@better-scroll/zoom-2.4.2.tgz?cache=0&sync_timestamp=1627912470609&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40better-scroll%2Fzoom%2Fdownload%2F%40better-scroll%2Fzoom-2.4.2.tgz"
+  "version" "2.4.2"
+  dependencies:
+    "@better-scroll/core" "^2.4.2"
+
 "@cnakazawa/watch@^1.0.3":
   "integrity" "sha512-v9kIhKwjeZThiWrLmj0y17CWoyddASLj9O2yvbZkbvw/N3rWOYy9zkV66ursAoVr0mV15bL8g0c4QZUE6cdDoQ=="
   "resolved" "https://registry.npmjs.org/@cnakazawa/watch/-/watch-1.0.4.tgz"
@@ -2868,6 +2936,21 @@
   dependencies:
     "tweetnacl" "^0.14.3"
 
+"better-scroll@^2.0.0-beta.10":
+  "integrity" "sha1-THudvD5pDZj9TYKhkMt0pl3Fxt8="
+  "resolved" "https://registry.nlark.com/better-scroll/download/better-scroll-2.0.0-beta.10.tgz"
+  "version" "2.0.0-beta.10"
+  dependencies:
+    "@better-scroll/core" "^2.0.0-beta.10"
+    "@better-scroll/mouse-wheel" "^2.0.0-beta.10"
+    "@better-scroll/observe-dom" "^2.0.0-beta.10"
+    "@better-scroll/pull-down" "^2.0.0-beta.10"
+    "@better-scroll/pull-up" "^2.0.0-beta.10"
+    "@better-scroll/scroll-bar" "^2.0.0-beta.10"
+    "@better-scroll/slide" "^2.0.0-beta.10"
+    "@better-scroll/wheel" "^2.0.0-beta.10"
+    "@better-scroll/zoom" "^2.0.0-beta.10"
+
 "bfj@^7.0.2":
   "integrity" "sha512-+e/UqUzwmzJamNF50tBV6tZPTORow7gQ96iFow+8b562OdMpEK0BcJEq2OSPEDmAbSMBQ7PKZ87ubFkgxpYWgw=="
   "resolved" "https://registry.npmjs.org/bfj/-/bfj-7.0.2.tgz"
@@ -4373,6 +4456,13 @@
   dependencies:
     "domelementtype" "^2.0.1"
     "entities" "^2.0.0"
+
+"dom7@^2.1.3":
+  "integrity" "sha1-p5QRAXgAsx2EAAcM2uu/ySwfY3c="
+  "resolved" "https://registry.npmmirror.com/dom7/download/dom7-2.1.5.tgz?cache=0&sync_timestamp=1635331916364&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fdom7%2Fdownload%2Fdom7-2.1.5.tgz"
+  "version" "2.1.5"
+  dependencies:
+    "ssr-window" "^2.0.0"
 
 "domain-browser@^1.1.1":
   "integrity" "sha512-jnjyiM6eRyZl2H+W8Q/zLMA481hzi0eszAaBUzIVnmYVDBbnLxVNnfu1HgEBvCbL+71FrxMl3E6lpKH7Ge3OXA=="
@@ -10614,6 +10704,16 @@
     "safer-buffer" "^2.0.2"
     "tweetnacl" "~0.14.0"
 
+"ssr-window@^1.0.1":
+  "integrity" "sha1-MHUqakZm53Z/C35qpvwv29DZs2k="
+  "resolved" "https://registry.npmmirror.com/ssr-window/download/ssr-window-1.0.1.tgz?cache=0&sync_timestamp=1635331916644&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fssr-window%2Fdownload%2Fssr-window-1.0.1.tgz"
+  "version" "1.0.1"
+
+"ssr-window@^2.0.0":
+  "integrity" "sha1-mMMBrvmVIzF/jWlhjwAQeRCW78Q="
+  "resolved" "https://registry.npmmirror.com/ssr-window/download/ssr-window-2.0.0.tgz?cache=0&sync_timestamp=1635331916644&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fssr-window%2Fdownload%2Fssr-window-2.0.0.tgz"
+  "version" "2.0.0"
+
 "ssri@^6.0.1":
   "integrity" "sha512-3Wge10hNcT1Kur4PDFwEieXSCMCJs/7WvSACcrMYrNp+b8kDL1/0wJch5Ni2WrtwEa2IO8OsVfeKIciKCDx/QA=="
   "resolved" "https://registry.npmjs.org/ssri/-/ssri-6.0.1.tgz"
@@ -10957,6 +11057,14 @@
     "stable" "^0.1.8"
     "unquote" "~1.1.1"
     "util.promisify" "~1.0.0"
+
+"swiper@^4.5.1":
+  "integrity" "sha1-7UOZjngM60eGEAecjSP9Ql7KY28="
+  "resolved" "https://registry.npmmirror.com/swiper/download/swiper-4.5.1.tgz?cache=0&sync_timestamp=1635331915370&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fswiper%2Fdownload%2Fswiper-4.5.1.tgz"
+  "version" "4.5.1"
+  dependencies:
+    "dom7" "^2.1.3"
+    "ssr-window" "^1.0.1"
 
 "symbol-tree@^3.2.4":
   "integrity" "sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw=="
