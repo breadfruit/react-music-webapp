@@ -39,3 +39,5 @@ function Loading() {
         </LoadingWrapper>
     )
 }
+
+export default React.memo(Loading);
