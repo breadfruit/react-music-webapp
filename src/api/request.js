@@ -18,11 +18,11 @@ export const getHotSingerListRequest = (count) => {
 //localhost:4000/artist/list?type=1&area=7&initial=b
 //type 取值: -1:全部 1:男歌手 2:女歌手 3:乐队
 //area 取值: -1:全部 7华语 96欧美 8:日本 0:其他
-//initial取值: b 为顺序排列, 热门传-1,#传0
+//initial取值: 名字首字母
 //limit   默认30
 //offset : 偏移数量 如 : 如 :( 页数 -1)*30, 其中 30 为 limit 的值 
-export const getSingerListRequest= (type, area, initial) => {
-  return axiosInstance.get(`/artist/list?type=${type}&area=${area.toLowerCase()}&initial=${initial}`);
+export const getSingerListRequest= (area, initial, offset) => {
+  return axiosInstance.get(`/artist/list?area=${area.toLowerCase()}&initial=${initial}&offset=${offset}`);
 }
 //获取排行榜
 export const getRankListRequest = () => {

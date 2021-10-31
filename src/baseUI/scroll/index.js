@@ -3,12 +3,14 @@ import PropTypes from "prop-types"
 import BScroll from "better-scroll"
 import styled from 'styled-components';
 import Loading from '../loading/index';
-
+import Loading2 from '../loading-v2/index';
 const ScrollContainer = styled.div`
   width: 100%;
   height: 100%;
   overflow: hidden;
 `
+
+//函数组件，别的组件不读到ref
 const Scroll = forwardRef((props, ref) => {
   const [bScroll, setBScroll] = useState();
 

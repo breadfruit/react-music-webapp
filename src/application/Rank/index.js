@@ -27,6 +27,7 @@ function Rank(props) {
   }, []);
 
   const enterDetail = (detail) => {
+    console.log(detail)
     props.history.push(`/rank/${detail.id}`)
   }
 // 这是渲染榜单列表函数，传入 global 变量来区分不同的布局方式
