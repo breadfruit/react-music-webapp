@@ -30,4 +30,11 @@ export const getRankListRequest = () => {
 };
 
 
+//获取歌单详情
+// 必选参数 : id : 歌单 id
+//可选参数 : s : 歌单最近的 s 个收藏者,默认为8
+export const getAlbumDetailRequest = id => {
+  return axiosInstance.get(`/playlist/detail?id=${id}`);
+};
+
 

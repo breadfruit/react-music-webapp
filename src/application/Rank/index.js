@@ -37,7 +37,7 @@ const renderRankList = (list, global) => {
       {
       list.map ((item) => {
         return (
-          <ListItem key={item.coverImgId} tracks={item.tracks} onClick={() => enterDetail (item.name)}>
+          <ListItem key={item.coverImgId} tracks={item.tracks} onClick={() => enterDetail (item)}>
             <div className="img_wrapper">
               <img src={item.coverImgUrl} alt=""/>
               <div className="decorate"></div>
@@ -49,6 +49,7 @@ const renderRankList = (list, global) => {
       })
     } 
     </List>
+    
   )
 }
 
@@ -88,7 +89,7 @@ return (
         { loading ? <EnterLoading><Loading></Loading></EnterLoading> : null }
       </div>
     </Scroll> 
-    {/* {renderRoutes (props.route.routes)} */}
+    {renderRoutes (props.route.routes)}
   </Container>
   );
 }
