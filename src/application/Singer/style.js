@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import style from '../../assets/global-style';
-
+//transform-orifin
+//如果定义了两个或更多值并且没有值的关键字，或者唯一使用的关键字是center，
+//则第一个值表示水平偏移量，第二个值表示垂直偏移量。
 export const Container = styled.div`
   position: fixed;
   top: 0;
@@ -27,6 +29,7 @@ export const Container = styled.div`
     transform: rotateZ(30deg) translate3d(100%, 0, 0);
   }
 `
+//图片有遮罩
 export const ImgWrapper = styled.div`
   position: relative;
   width: 100%;
@@ -76,7 +79,7 @@ export const CollectButton = styled.div`
 
 export const SongListWrapper = styled.div`
   position: absolute;
-  z-index: 80;
+  z-index: 100;
   top: 0;
   left: 0;
   bottom: 0;

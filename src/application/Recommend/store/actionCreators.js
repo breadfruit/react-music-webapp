@@ -1,4 +1,4 @@
-import * as actionTypes from './constant';
+import * as actionTypes from './constants';
 import { fromJS } from 'immutable';
 import { getBannerRequest, getRecommendListRequest } from '../../../api/request';
 
