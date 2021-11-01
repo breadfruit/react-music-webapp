@@ -41,3 +41,6 @@ export const getAlbumDetailRequest = id => {
 export const getSingerInfoRequest = id => {
   return axiosInstance.get(`/artists?id=${id}`);
 };
+
+//顶部的高度
+export const HEADER_HEIGHT = 45;
