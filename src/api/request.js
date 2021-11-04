@@ -46,3 +46,10 @@ export const getSingerInfoRequest = id => {
 export const HEADER_HEIGHT = 45;
 
 //播放器开发,
+
+
+
+//获取歌曲歌词
+export const getLyricRequest = id => {
+  return axiosInstance.get (`/lyric?id=${id}`);
+};
