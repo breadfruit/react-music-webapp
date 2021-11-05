@@ -139,7 +139,6 @@ function Player(props) {
         <div>
              <MiniPlayer 
              song={currentSong}
-             togglePlayListDispatch = {toggleFullScreenDispatch}
              fullScreen = {fullScreen}
              toggleFullScreen={toggleFullScreenDispatch}
              />

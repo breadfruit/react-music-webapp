@@ -9,9 +9,9 @@ import {
     Bottom,
     Operators,
     CDWrapper,
-
+    ProgressWrapper,
 } from "./style";
-
+import ProgressBar from '../../../baseUI/progressBar/index'
 function NormalPlayer(props) {
     const { song, fullScreen } = props;
     const { toggleFullScreenDispatch } = props;
@@ -131,6 +131,13 @@ function NormalPlayer(props) {
                     </CDWrapper>
                 </Middle>
                 <Bottom className="bottom">
+                    <ProgressWrapper>
+                        <span className="time time-l">0:00</span>
+                        <div className="progress-bar-wrapper">
+                            <ProgressBar percent={0.2}></ProgressBar>
+                        </div>
+                        <div className="time time-r">4:17</div>
+                    </ProgressWrapper>
                     <Operators>
                         <div className="icon i-left" >
                             <i className="iconfont">&#xe625;</i>
