@@ -18,6 +18,7 @@ function NormalPlayer(props) {
     //js帧动画
     const normalPlayerRef = useRef();
     const cdWrapperRef = useRef();
+
     const _getPosAndScale = () => {
         const targetWidth = 40;
         const paddingLeft = 40;
@@ -37,6 +38,7 @@ function NormalPlayer(props) {
 
 
     const [currentState, setCurrentState] = useState(0);
+
     //处理transform的浏览器兼容问题
     const transform = prefixStyle("transform");
     const enter = () => {
@@ -71,21 +73,23 @@ function NormalPlayer(props) {
     };
 
     const leave = () => {
-        if (!cdWrapperRef.current) return;
-        const cdWrapperDom = cdWrapperRef.current;
-        cdWrapperDom.style.transition = "all 0.4s";
-        const { x, y, scale } = _getPosAndScale();
-        cdWrapperDom.style[transform] = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
+    if (!cdWrapperRef.current) return;
+    const cdWrapperDom = cdWrapperRef.current;
+    cdWrapperDom.style.transition = "all 0.4s";
+    const { x, y, scale } = _getPosAndScale ();
+    cdWrapperDom.style [transform] = `translate3d (${x} px, ${y} px, 0) scale (${scale})`;
     };
 
     const afterLeave = () => {
-        if (!cdWrapperRef.current) return;
-        const cdWrapperDom = cdWrapperRef.current;
-        cdWrapperDom.style.transition = "";
-        cdWrapperDom.style[transform] = "";
-        normalPlayerRef.current.style.display = "none";
-        setCurrentState("");
+    if (!cdWrapperRef.current) return;
+    const cdWrapperDom = cdWrapperRef.current;
+    cdWrapperDom.style.transition = "";
+    cdWrapperDom.style [transform] = "";
+    // 一定要注意现在要把 normalPlayer 这个 DOM 给隐藏掉，因为 CSSTransition 的工作只是把动画执行一遍 
+    // 不置为 none 现在全屏播放器页面还是存在
+    normalPlayerRef.current.style.display = "none";
     };
+    
     return (
         <CSSTransition
             classNames="normal"
@@ -119,15 +123,15 @@ function NormalPlayer(props) {
                 <Middle ref={cdWrapperRef}>
                     <CDWrapper
                     >
-                        <div className="cd">
-                            <img
-                                className="image play"
-                                src={song.al.picUrl + "?param=400x400"}
-                                alt=""
-                            />
-                        </div>
+                    <div className="cd">
+                        <img
+                        className="image play"
+                        src={song.al.picUrl + "?param=400x400"}
+                        alt=""
+                        />
+                    </div>
                         {/* <CD playing={playing} image={song.al.picUrl + "?param=300x300"}></CD> */}
-                        <p className="playing_lyric"></p>
+                    <p className="playing_lyric"></p>
                     </CDWrapper>
                 </Middle>
                 <Bottom className="bottom">

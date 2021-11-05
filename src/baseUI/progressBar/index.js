@@ -78,25 +78,6 @@ function ProgressBar(props){
     // _changePercent(percent);
   }
 
-  const progressTouchStart = (e) => {
-    console.log('progressTouchStart', e)
-    console.log('progress.current.clientWidth----', progress.current.clientWidth)
-    const startTouch = {};
-    startTouch.initiated = true;
-    startTouch.startX = e.touches[0].pageX;
-    startTouch.left = progress.current.clientWidth;
-    setTouch(startTouch);
-  }
-
-  const progressTouchMove = (e) => {
-      // pageX 是一个由MouseEvent接口返回的相对于整个文档的x（水平）坐标以像素为单位的只读属性
-    console.log('progressTouchMove', e)
-    if(!touch.initiated) return;
-    const deltaX = e.touches[0].pageX - touch.startX;
-    const barWidth = progressBar.current.clientWidth - progressBtnWidth; 
-    const offsetWidth = Math.min(Math.max(0, touch.left + deltaX), barWidth);
-    _offset(offsetWidth);
-  }
 
   const progressTouchEnd = (e) => {
     console.log('progressTouchEnd', e)
@@ -105,6 +86,33 @@ function ProgressBar(props){
     setTouch(endTouch);
     // _changePercent();
   }
+
+  const progressTouchStart = (e) => {
+      const startTouch = {};
+      //可以操作
+      startTouch.initiated = true;
+      //相对于文档页面偏移距离
+      startTouch.startX = e.touches[0].pageX;
+      //当前进度
+      startTouch.left = progress.current.clientWidth;
+      setTouch(startTouch)
+  }
+
+  //当前进度进行偏移,过渡，transform有兼容性问题
+  const progressTouchMove = (e) => {
+    if(!touch.initiated) return;
+    //计算触摸前后的距离
+    const deltaX = e.touches[0].pageX - touch.startX;
+    //当前最长的进度必须考虑到按钮的宽度，不能计算在内
+    const barWidth = progressBar.current.clientWidth - progressBtnWidth;
+    //考虑临界情况，取最小值
+    const offsetWidth = Math.min(Math.max(0, touch.left + deltaX), barWidth)
+    //进行数据更新
+    _offset(offsetWidth)
+
+  }
+
+
 
   return (
     <ProgressBarWrapper>
