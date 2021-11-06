@@ -31,6 +31,13 @@ function Player(props) {
     //获取当前播放歌曲信息
     let currentSong = immutableCurrentSong ? immutableCurrentSong.toJS() : [];
 
+    //记录当前的歌曲，以便于下次重渲染时比对是否是一首歌
+    const [preSong, setPreSong] = useState({});
+
+    useEffect(() => {
+        changeCurrentIndexDispatch(0);
+    }, [])
+
     //mock一份playList，后面直接从 redux 拿，现在只是为了调试播放效果。
     const playList = [
         {
@@ -107,6 +114,7 @@ function Player(props) {
         rurl: null
         }
     ];
+    
     useEffect(() => {
         if(!currentSong) return;
         changeCurrentIndexDispatch(0);//currentIndex默认为-1，临时改成0
@@ -119,14 +127,27 @@ function Player(props) {
         togglePlayingDispatch(true);//播放状态
         setCurrentTime(0);//从头开始播放
         setDuration((current.dt / 1000) | 0);//时长
-      }, []);
+    }, []);
 
-      useEffect(() => {
-        playing ? audioRef.current.play() : audioRef.current.pause();
-      }, [playing]);
-
- 
-
+    useEffect(() => {
+        if (
+          !playList.length ||
+          currentIndex === -1 ||
+          !playList[currentIndex] ||
+          playList[currentIndex].id === preSong.id 
+        )
+          return;
+        let current = playList[currentIndex];
+        changeCurrentDispatch(current);//赋值currentSong
+        setPreSong(current);
+        audioRef.current.src = getSongUrl(current.id);
+        setTimeout(() => {
+          audioRef.current.play();
+        });
+        togglePlayingDispatch(true);//播放状态
+        setCurrentTime(0);//从头开始播放
+        setDuration((current.dt / 1000) | 0);//时长
+    }, [playList, currentIndex]);
 
     const clickPlaying = (e, state) => {
         e.stopPropagation();
@@ -147,6 +168,32 @@ function Player(props) {
         }
     };
 
+
+    const handleLoop = () => {
+        audioRef.current.currentTime = 0;
+        changePlayingState(true);
+        audioRef.current.play();
+    } 
+    const handlePrev = () => {
+        if(playList.length === 1) {
+            handleLoop();
+            return;
+        }
+        let index = currentIndex - 1;
+        if (index < 0) index = playList.length - 1;
+        if (!playing) togglePlayingDispatch(true);
+        changeCurrentIndexDispatch(index);
+    }
+    const handleNext = () => {
+        if(playList.length === 1) {
+            handleLoop();
+            return;
+        }
+        let index = currentIndex + 1;
+        if (index === playList.length) index = 0;
+        if (!playing) togglePlayingDispatch(true);
+        changeCurrentIndexDispatch(index);
+    }
     return (
         <div>
             { isEmptyObject(currentSong) ? null : 
@@ -169,6 +216,8 @@ function Player(props) {
                 currentTime={currentTime}//播放时间
                 percent={percent}//进度
                 onProgressChange={onProgressChange}//进度条被滑动或点击时用来改变percent的回调函数
+                handlePrev={handlePrev}
+                handleNext={handleNext}
             />
             }
             <audio 

@@ -16,7 +16,7 @@ import {formatPlayTime} from '../../../api/utils'
 
 
 function NormalPlayer(props) {
-    const { song, fullScreen, playing, percent, duration, currentTime } =  props;
+    const { song, fullScreen, playing, percent, duration, currentTime, handlePrev, handleNext } =  props;
 const { toggleFullScreen, clickPlaying, onProgressChange } = props;
     //js帧动画
     const normalPlayerRef = useRef();
@@ -151,7 +151,7 @@ const { toggleFullScreen, clickPlaying, onProgressChange } = props;
                         <div className="icon i-left" >
                             <i className="iconfont">&#xe625;</i>
                         </div>
-                        <div className="icon i-left">
+                        <div className="icon i-left" onClick={handlePrev}>
                             <i className="iconfont">&#xe6e1;</i>
                         </div>
                         <div className="icon i-center">
@@ -163,10 +163,10 @@ const { toggleFullScreen, clickPlaying, onProgressChange } = props;
                                 }}
                             ></i>
                         </div>
-                        <div className="icon i-right">
+                        <div className="icon i-right" onClick={handleNext}>
                             <i className="iconfont">&#xe718;</i>
                         </div>
-                        <div className="icon i-right">
+                        <div className="icon i-right" >
                             <i className="iconfont">&#xe640;</i>
                         </div>
                     </Operators>
