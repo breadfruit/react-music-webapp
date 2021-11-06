@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react'
+import React, { useEffect, useState, useRef} from 'react'
 import MiniPlayer from './miniPlayer/index';
 import NormalPlayer from './normalPlayer/index'
 import {connect} from 'react-redux'
@@ -11,9 +11,11 @@ import {
     changePlayMode,
     changeFullScreen
 } from "./store/actionCreators";
-import {getLyricRequest} from '../../api/request'
-
+import {getLyricRequest, getSongUrl} from '../../api/request'
+import { isEmptyObject } from "../../api/utils";
 function Player(props) {
+
+    const audioRef = useRef();
 
     console.log('currentsong,----', props)
     //目前播放时间
@@ -27,7 +29,7 @@ function Player(props) {
     const { toggleFullScreenDispatch, togglePlayingDispatch, changeCurrentIndexDispatch, changeCurrentDispatch } = props;
   
     //获取当前播放歌曲信息
-    //let currentSong = immutableCurrentSong ? immutableCurrentSong.toJS() : [];
+    let currentSong = immutableCurrentSong ? immutableCurrentSong.toJS() : [];
 
     //mock一份playList，后面直接从 redux 拿，现在只是为了调试播放效果。
     const playList = [
@@ -106,48 +108,47 @@ function Player(props) {
         }
     ];
     useEffect(() => {
-        if (
-          !playList.length ||
-          currentIndex === -1 ||
-          !playList[currentIndex] 
-        //   playList[currentIndex].id === preSong.id ||
-        //   !songReady.current
-        )
-        return;
-        // songReady.current = false;
-        let current = playList[currentIndex];
-        changeCurrentDispatch(current);
-        // setPreSong(current);
-        // setPlayingLyric("");
-        // audioRef.current.src = getSongUrl(current.id);
-        // audioRef.current.autoplay = true;
-        // audioRef.current.playbackRate = speed;
-        togglePlayingDispatch(true);
-        //getLyric(current.id);
-        setCurrentTime(0);
-        setDuration((current.dt / 1000) | 0);
-        // eslint-disable-next-line
-      }, [currentIndex, playList]);
+        if(!currentSong) return;
+        changeCurrentIndexDispatch(0);//currentIndex默认为-1，临时改成0
+        let current = playList[0];
+        changeCurrentDispatch(current);//赋值currentSong
+        audioRef.current.src = getSongUrl(current.id);
+        setTimeout(() => {
+          audioRef.current.play();
+        });
+        togglePlayingDispatch(true);//播放状态
+        setCurrentTime(0);//从头开始播放
+        setDuration((current.dt / 1000) | 0);//时长
+      }, []);
 
-    const currentSong = {
-        al: { picUrl: "https://p1.music.126.net/JL_id1CFwNJpzgrXwemh4Q==/109951164172892390.jpg" },
-        name: "木偶人",
-        ar: [{name: "薛之谦"}]
+ 
+
+
+    const clickPlaying = (e, state) => {
+        e.stopPropagation();
+        togglePlayingDispatch(state);
     }
-
     return (
         <div>
-             <MiniPlayer 
-             song={currentSong}
-             fullScreen = {fullScreen}
-             toggleFullScreen={toggleFullScreenDispatch}
-             />
-             <NormalPlayer 
-              song={currentSong}
-              fullScreen={fullScreen}
-              toggleFullScreen={toggleFullScreenDispatch}
-             />
-
+            { isEmptyObject(currentSong) ? null : 
+            <MiniPlayer
+                song={currentSong}
+                fullScreen={fullScreen}
+                playing={playing}
+                toggleFullScreen={toggleFullScreenDispatch}
+                clickPlaying={clickPlaying}
+            /> 
+            }
+            { isEmptyObject(currentSong) ? null : 
+            <NormalPlayer
+                song={currentSong}
+                fullScreen={fullScreen}
+                playing={playing}
+                toggleFullScreen={toggleFullScreenDispatch}
+                clickPlaying={clickPlaying}
+            />
+            }
+            <audio ref={audioRef}></audio>
         </div>
     )
 }
