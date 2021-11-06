@@ -1,20 +1,27 @@
 import React from 'react';
 import { SongList, SongItem } from "./style";
 import { getName } from '../../api/utils';
+import { changePlayList, changeCurrentIndex, changeSequecePlayList } from './../../application/Player/store/actionCreators';
+import { connect } from 'react-redux';
 
-const SongsList = React.forwardRef((props, refs)=> {
+const SongsList = React.forwardRef((props, refs) => {
 
   const { collectCount, showCollect, songs } = props;
+  const { changePlayListDispatch, changeCurrentIndexDispatch, changeSequecePlayListDispatch } = props;
 
-  const totalCount = songs.length;
-
+  // 接受触发动画的函数
+  const { musicAnimation } = props;
   const selectItem = (e, index) => {
-    console.log(index);
+    changePlayListDispatch(songs);
+    changeSequecePlayListDispatch(songs);
+    changeCurrentIndexDispatch(index);
+    musicAnimation(e.nativeEvent.clientX, e.nativeEvent.clientY);
   }
+  const totalCount = songs.length;
 
   let songList = (list) => {
     let res = [];
-    for(let i = 0; i < list.length; i++) {
+    for (let i = 0; i < list.length; i++) {
       let item = list[i];
       res.push(
         <li key={item.id} onClick={(e) => selectItem(e, i)}>
@@ -22,7 +29,7 @@ const SongsList = React.forwardRef((props, refs)=> {
           <div className="info">
             <span>{item.name}</span>
             <span>
-              { item.ar ? getName(item.ar): getName(item.artists) } - { item.al ? item.al.name : item.album.name}
+              {item.ar ? getName(item.ar) : getName(item.artists)} - {item.al ? item.al.name : item.album.name}
             </span>
           </div>
         </li>
@@ -32,10 +39,10 @@ const SongsList = React.forwardRef((props, refs)=> {
   };
 
   const collect = (count) => {
-    return  (
+    return (
       <div className="add_list">
         <i className="iconfont">&#xe62d;</i>
-        <span>收藏({Math.floor(count/1000)/10}万)</span>
+        <span>收藏({Math.floor(count / 1000) / 10}万)</span>
       </div>
       // <div className="isCollected">
       //   <span>已收藏({Math.floor(count/1000)/10}万)</span>
@@ -49,13 +56,28 @@ const SongsList = React.forwardRef((props, refs)=> {
           <i className="iconfont">&#xe6e3;</i>
           <span>播放全部 <span className="sum">(共{totalCount}首)</span></span>
         </div>
-        { showCollect ? collect(collectCount) : null}
+        {showCollect ? collect(collectCount) : null}
       </div>
       <SongItem>
-        { songList(songs) }
+        {songList(songs)}
       </SongItem>
     </SongList>
   )
 });
 
-export default React.memo(SongsList);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changePlayListDispatch(data) {
+      dispatch(changePlayList(data));
+    },
+    changeCurrentIndexDispatch(data) {
+      dispatch(changeCurrentIndex(data));
+    },
+    changeSequecePlayListDispatch(data) {
+      dispatch(changeSequecePlayList(data))
+    }
+  }
+};
+
+// 将 ui 组件包装成容器组件
+export default connect(null, mapDispatchToProps)(React.memo(SongsList));

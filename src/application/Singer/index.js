@@ -9,8 +9,13 @@ import Loading from "./../../baseUI/loading/index";
 import { getSingerInfo, changeEnterLoading } from "./store/actionCreators";
 import { connect } from 'react-redux'
 import { HEADER_HEIGHT } from "./../../api/config";
+import MusicNote from "../../baseUI/music-note/index";
 
 function Singer(props) {
+    const musicNoteRef = useRef ();
+    const musicAnimation = (x, y) => {
+        musicNoteRef.current.startAnimation ({ x, y });
+      };
     const setShowStatusFalse = useCallback(() => {
         setShowStatus(false);
     }, []);
@@ -124,10 +129,12 @@ function Singer(props) {
                         <SongsList
                             songs={songs}
                             showCollect={true}
+                            musicAnimation={musicAnimation}
                         ></SongsList>
                     </Scroll>
                 </SongListWrapper>
                 {loading ? (<Loading></Loading>) : null}
+                <MusicNote ref={musicNoteRef}></MusicNote>
             </Container>
         </CSSTransition>
     )

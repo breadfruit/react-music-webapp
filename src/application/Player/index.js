@@ -14,6 +14,7 @@ import {
 import {getLyricRequest} from '../../api/request';
 import { getSongUrl, isEmptyObject, shuffle, findIndex } from "../../api/utils";
 import Toast from "../../baseUI/toast/index";
+import {playMode} from '../../api/config'
 function Player(props) {
 
     const audioRef = useRef();
@@ -224,7 +225,13 @@ function Player(props) {
         toastRef.current.show();
       };
       
-
+    const handleEnd = () => {
+        if (mode === playMode.loop) {
+          handleLoop();
+        } else {
+          handleNext();
+        }
+    }
     return (
         <div>
             { isEmptyObject(currentSong) ? null : 
@@ -256,6 +263,7 @@ function Player(props) {
             <audio 
                 ref={audioRef}
                 onTimeUpdate={updateTime}
+                onEnded={handleEnd}
             ></audio>
             <Toast text={modeText} ref={toastRef}></Toast>  
         </div>
