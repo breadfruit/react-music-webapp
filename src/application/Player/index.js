@@ -121,6 +121,10 @@ function Player(props) {
         setDuration((current.dt / 1000) | 0);//时长
       }, []);
 
+      useEffect(() => {
+        playing ? audioRef.current.play() : audioRef.current.pause();
+      }, [playing]);
+
  
 
 
@@ -128,6 +132,21 @@ function Player(props) {
         e.stopPropagation();
         togglePlayingDispatch(state);
     }
+
+    const updateTime = e => {
+        setCurrentTime(e.target.currentTime);
+    };
+
+
+    const onProgressChange = curPercent => {
+        const newTime = curPercent * duration;
+        setCurrentTime(newTime);
+        audioRef.current.currentTime = newTime;
+        if (!playing) {
+          togglePlayingDispatch(true);
+        }
+    };
+
     return (
         <div>
             { isEmptyObject(currentSong) ? null : 
@@ -146,9 +165,16 @@ function Player(props) {
                 playing={playing}
                 toggleFullScreen={toggleFullScreenDispatch}
                 clickPlaying={clickPlaying}
+                duration={duration}//总时长
+                currentTime={currentTime}//播放时间
+                percent={percent}//进度
+                onProgressChange={onProgressChange}//进度条被滑动或点击时用来改变percent的回调函数
             />
             }
-            <audio ref={audioRef}></audio>
+            <audio 
+                ref={audioRef}
+                onTimeUpdate={updateTime}
+            ></audio>
         </div>
     )
 }
