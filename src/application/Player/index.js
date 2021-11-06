@@ -11,34 +11,21 @@ import {
     changePlayMode,
     changeFullScreen
 } from "./store/actionCreators";
-import {getLyricRequest, getSongUrl} from '../../api/request'
-import { isEmptyObject } from "../../api/utils";
+import {getLyricRequest} from '../../api/request';
+import { getSongUrl, isEmptyObject, shuffle, findIndex } from "../../api/utils";
+import Toast from "../../baseUI/toast/index";
 function Player(props) {
 
     const audioRef = useRef();
 
-    console.log('currentsong,----', props)
+    console.log('currentsong,----', typeof props.mode)
     //目前播放时间
     const [currentTime, setCurrentTime] = useState(0);
     //歌曲总时长
     const [duration, setDuration] = useState(0);
     //歌曲播放进度
     let percent = isNaN(currentTime / duration) ? 0 : currentTime / duration;
- 
-    const { fullScreen, playing, currentIndex, currentSong: immutableCurrentSong } = props;
-    const { toggleFullScreenDispatch, togglePlayingDispatch, changeCurrentIndexDispatch, changeCurrentDispatch } = props;
-  
-    //获取当前播放歌曲信息
-    let currentSong = immutableCurrentSong ? immutableCurrentSong.toJS() : [];
-
-    //记录当前的歌曲，以便于下次重渲染时比对是否是一首歌
-    const [preSong, setPreSong] = useState({});
-
-    useEffect(() => {
-        changeCurrentIndexDispatch(0);
-    }, [])
-
-    //mock一份playList，后面直接从 redux 拿，现在只是为了调试播放效果。
+    
     const playList = [
         {
         ftype: 0,
@@ -114,21 +101,40 @@ function Player(props) {
         rurl: null
         }
     ];
-    
-    useEffect(() => {
-        if(!currentSong) return;
-        changeCurrentIndexDispatch(0);//currentIndex默认为-1，临时改成0
-        let current = playList[0];
-        changeCurrentDispatch(current);//赋值currentSong
-        audioRef.current.src = getSongUrl(current.id);
-        setTimeout(() => {
-          audioRef.current.play();
-        });
-        togglePlayingDispatch(true);//播放状态
-        setCurrentTime(0);//从头开始播放
-        setDuration((current.dt / 1000) | 0);//时长
-    }, []);
+  
+    const [modeText, setModeText] = useState("");
 
+    const toastRef = useRef();
+
+    const {
+        playing,
+        currentSong:immutableCurrentSong,
+        currentIndex,
+        playList:immutablePlayList,
+        mode,//播放模式
+        sequencePlayList:immutableSequencePlayList,//顺序列表
+        fullScreen
+    } = props;
+    const {
+        togglePlayingDispatch,
+        changeCurrentIndexDispatch,
+        changeCurrentDispatch,
+        changePlayListDispatch,//改变playList
+        changeModeDispatch,//改变mode
+        toggleFullScreenDispatch
+    } = props;
+  
+    //const playList = immutablePlayList ? immutablePlayList.toJS(): [];
+    const sequencePlayList = immutableSequencePlayList ? immutableSequencePlayList.toJS(): [];
+    const currentSong = immutableCurrentSong ? immutableCurrentSong.toJS(): [];
+
+
+    //记录当前的歌曲，以便于下次重渲染时比对是否是一首歌
+    const [preSong, setPreSong] = useState({});
+
+    useEffect(() => {
+        changeCurrentIndexDispatch(0);
+    }, [])
     useEffect(() => {
         if (
           !playList.length ||
@@ -147,7 +153,7 @@ function Player(props) {
         togglePlayingDispatch(true);//播放状态
         setCurrentTime(0);//从头开始播放
         setDuration((current.dt / 1000) | 0);//时长
-    }, [playList, currentIndex]);
+      }, [playList, currentIndex]);
 
     const clickPlaying = (e, state) => {
         e.stopPropagation();
@@ -167,7 +173,6 @@ function Player(props) {
           togglePlayingDispatch(true);
         }
     };
-
 
     const handleLoop = () => {
         audioRef.current.currentTime = 0;
@@ -194,6 +199,32 @@ function Player(props) {
         if (!playing) togglePlayingDispatch(true);
         changeCurrentIndexDispatch(index);
     }
+
+    const changeMode = () => {
+        let newMode = (mode + 1) % 3;
+        if (newMode === 0) {
+          //顺序模式
+          changePlayListDispatch(sequencePlayList);
+          let index = findIndex(currentSong, sequencePlayList);
+          changeCurrentIndexDispatch(index);
+          setModeText("顺序循环");
+        } else if (newMode === 1) {
+          //单曲循环
+          changePlayListDispatch(sequencePlayList);
+          setModeText("单曲循环");
+        } else if (newMode === 2) {
+          //随机播放
+          let newList = shuffle(sequencePlayList);
+          let index = findIndex(currentSong, newList);
+          changePlayListDispatch(newList);
+          changeCurrentIndexDispatch(index);
+          setModeText("随机播放");
+        }
+        changeModeDispatch(newMode);
+        toastRef.current.show();
+      };
+      
+
     return (
         <div>
             { isEmptyObject(currentSong) ? null : 
@@ -206,24 +237,27 @@ function Player(props) {
             /> 
             }
             { isEmptyObject(currentSong) ? null : 
-            <NormalPlayer
-                song={currentSong}
-                fullScreen={fullScreen}
-                playing={playing}
-                toggleFullScreen={toggleFullScreenDispatch}
-                clickPlaying={clickPlaying}
-                duration={duration}//总时长
-                currentTime={currentTime}//播放时间
-                percent={percent}//进度
-                onProgressChange={onProgressChange}//进度条被滑动或点击时用来改变percent的回调函数
-                handlePrev={handlePrev}
-                handleNext={handleNext}
-            />
+                <NormalPlayer
+                    song={currentSong}
+                    fullScreen={fullScreen}
+                    playing={playing}
+                    toggleFullScreen={toggleFullScreenDispatch}
+                    clickPlaying={clickPlaying}
+                    duration={duration}//总时长
+                    currentTime={currentTime}//播放时间
+                    percent={percent}//进度
+                    onProgressChange={onProgressChange}//进度条被滑动或点击时用来改变percent的回调函数
+                    handlePrev={handlePrev}
+                    handleNext={handleNext}
+                    mode={mode}
+                    changeMode={changeMode}
+                />
             }
             <audio 
                 ref={audioRef}
                 onTimeUpdate={updateTime}
             ></audio>
+            <Toast text={modeText} ref={toastRef}></Toast>  
         </div>
     )
 }

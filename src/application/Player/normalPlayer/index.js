@@ -13,15 +13,16 @@ import {
 } from "./style";
 import ProgressBar from '../../../baseUI/progressBar/index'
 import {formatPlayTime} from '../../../api/utils'
-
+import { playMode } from '../../../api/config';
 
 function NormalPlayer(props) {
-    const { song, fullScreen, playing, percent, duration, currentTime, handlePrev, handleNext } =  props;
-const { toggleFullScreen, clickPlaying, onProgressChange } = props;
+    const { song, fullScreen, playing, percent, duration, currentTime, handlePrev, handleNext, mode} =  props;
+    const { toggleFullScreen, clickPlaying, onProgressChange, changeMode } = props;
     //js帧动画
+    console.log('normalmode----', props.mode)
     const normalPlayerRef = useRef();
     const cdWrapperRef = useRef();
-
+    console.log('normalplayer', props)
     const [currentState, setCurrentState] = useState(0);
     //处理transform的浏览器兼容问题
     const transform = prefixStyle("transform");
@@ -92,6 +93,21 @@ const { toggleFullScreen, clickPlaying, onProgressChange } = props;
     normalPlayerRef.current.style.display = "none";
     };
     
+
+    const getPlayMode = () => {
+        let content;
+        console.log('getplaymode', mode)
+        if (mode === playMode.sequence) {
+          content = "&#xe625;";
+        } else if (mode === playMode.loop) {
+          content = "&#xe653;";
+        } else {
+          content = "&#xe61b;";
+        }
+        console.log('getplaymode里面的content', content)
+        return content;
+    };
+      
     return (
         <CSSTransition
             classNames="normal"
@@ -103,7 +119,10 @@ const { toggleFullScreen, clickPlaying, onProgressChange } = props;
             onExit={leave}
             onExited={afterLeave}
         >
-            <NormalPlayerContainer ref={normalPlayerRef}>
+            <NormalPlayerContainer 
+            ref={normalPlayerRef} 
+            mode={mode}
+            changeMode={changeMode}>
                 <div className="background">
                     <img
                         src={song.al.picUrl + "?param=300x300"}
@@ -148,8 +167,11 @@ const { toggleFullScreen, clickPlaying, onProgressChange } = props;
                         <div className="time time-r">{formatPlayTime(duration)}</div>
                     </ProgressWrapper>
                     <Operators>
-                        <div className="icon i-left" >
-                            <i className="iconfont">&#xe625;</i>
+                        <div className="icon i-left" onClick={changeMode}>
+                            <i
+                                className="iconfont"
+                                dangerouslySetInnerHTML={{ __html: getPlayMode() }}
+                            ></i>
                         </div>
                         <div className="icon i-left" onClick={handlePrev}>
                             <i className="iconfont">&#xe6e1;</i>
