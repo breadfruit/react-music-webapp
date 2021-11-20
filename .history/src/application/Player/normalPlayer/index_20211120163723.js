@@ -188,7 +188,7 @@ function NormalPlayer(props) {
                         <div className="icon i-right" onClick={handleNext}>
                             <i className="iconfont">&#xe718;</i>
                         </div>
-                        <div className="icon i-right" onClick={() =>togglePlayList(true)} >
+                        <div className="icon i-right" onClick={handleTogglePlayList} >
                             <i className="iconfont">&#xe640;</i>
                         </div>
                     </Operators>

@@ -1,9 +1,7 @@
-import styled, {
-    keyframes
-} from 'styled-components'
+import styled,  {keyframes}  from 'styled-components'
 import style from '../../../assets/global-style'
 
-const rotate = keyframes `
+const rotate = keyframes`
   0%{
     transform: rotate (0);
   }
@@ -13,7 +11,7 @@ const rotate = keyframes `
 `
 
 
-export const MiniPlayerContainer = styled.div `
+export const MiniPlayerContainer = styled.div`
     display: flex;
     align-items: center;
     position: fixed;
@@ -60,13 +58,13 @@ export const MiniPlayerContainer = styled.div `
         overflow: hidden;
         .name {
             margin-bottom: 2px;
-            font-size: ${style["font-size-m"]};
-            color: ${style["font-color-desc"]};
+            font-size: ${style ["font-size-m"]};
+            color: ${style ["font-color-desc"]};
             ${style.noWrap ()}
         }
         .desc {
-            font-size: ${style["font-size-s"]};
-            color: ${style["font-color-desc-v2"]};
+            font-size: ${style ["font-size-s"]};
+            color: ${style ["font-color-desc-v2"]};
             ${style.noWrap ()}
         }
     }
@@ -75,7 +73,7 @@ export const MiniPlayerContainer = styled.div `
         padding: 0 10px;
         .iconfont, .icon-playlist {
           font-size: 30px;
-          color: ${style["theme-color"]};
+          color: ${style ["theme-color"]};
         }
         .icon-mini {
           font-size: 16px;
@@ -88,3 +86,4 @@ export const MiniPlayerContainer = styled.div `
         }
     }
 `
+

@@ -3,7 +3,7 @@ import { SongList, SongItem } from "./style";
 import { getName } from '../../api/utils';
 import { ONE_PAGE_COUNT } from '../../api/config';
 import { connect } from 'react-redux';
-import { changePlayList, changeCurrentIndex, changeSequecePlayList } from '../Player/store/actionCreators';
+import { changePlayList, changeCurrentIndex, changeSequecePlayList } from '../Player1/store/actionCreators';
 
 const SongsList = React.forwardRef((props, refs)=> {
 

@@ -75,7 +75,7 @@ export const MiniPlayerContainer = styled.div `
         padding: 0 10px;
         .iconfont, .icon-playlist {
           font-size: 30px;
-          color: ${style["theme-color"]};
+          color: ${style ["theme-color"]};
         }
         .icon-mini {
           font-size: 16px;
