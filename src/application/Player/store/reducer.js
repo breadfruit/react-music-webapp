@@ -16,6 +16,7 @@ const defaultState = fromJS({
 });
 
 const handleInsertSong = (state, song) => {
+  
   const playList = JSON.parse(JSON.stringify(state.get('playList').toJS()));
   const sequenceList = JSON.parse(JSON.stringify(state.get('sequencePlayList').toJS()));
   let currentIndex = state.get('currentIndex');
@@ -55,6 +56,7 @@ const handleInsertSong = (state, song) => {
 }
 
 const handleDeleteSong = (state, song) => {
+  // 也可用 loadsh 库的 deepClone 方法。这里深拷贝是基于纯函数的考虑，不对参数 state 做修改
   const playList = JSON.parse(JSON.stringify(state.get('playList').toJS()));
   const sequenceList = JSON.parse(JSON.stringify(state.get('sequencePlayList').toJS()));
   let currentIndex = state.get('currentIndex');

@@ -6,7 +6,7 @@ import { prefixStyle, getName, shuffle, findIndex } from './../../../api/utils';
 import { changeShowPlayList, changeCurrentIndex, changePlayMode, changePlayList, deleteSong,changeSequecePlayList, changeCurrentSong, changePlayingState } from "../store/actionCreators";
 import { playMode } from "../../../api/config";
 import Scroll from '../../../baseUI/scroll';
-// import Confirm from './../../../baseUI/confirm/index';
+import Confirm from './../../../baseUI/confirm/index';
 //组件内代码
 function PlayList(props) {
   const [canTouch,setCanTouch] = useState(true);
@@ -39,7 +39,7 @@ function PlayList(props) {
   const sequencePlayList = immutableSequencePlayList.toJS();
 
   const listContentRef = useRef();
-  // const confirmRef = useRef();
+  const confirmRef = useRef();
   const playListRef = useRef();
   const listWrapperRef = useRef();
   const [isShow, setIsShow] = useState(false);
@@ -118,6 +118,7 @@ function PlayList(props) {
     changeModeDispatch(newMode);
   };
 
+  //点击歌曲将当前的歌曲的状态进行切割
   const handleChangeCurrentIndex = (index) => {
     if(currentIndex === index) return;
     changeCurrentIndexDispatch(index);
@@ -128,9 +129,9 @@ function PlayList(props) {
     deleteSongDispatch(song);
   };
 
-  // const handleShowClear = () => {
-  //   confirmRef.current.show();
-  // };
+  const handleShowClear = () => {
+    confirmRef.current.show();
+  };
 
   const handleConfirmClear = () => {
     clearDispatch();
@@ -225,13 +226,13 @@ function PlayList(props) {
               </ListContent>
             </Scroll>
           </ScrollWrapper>
-          {/* <Confirm 
+          <Confirm 
             ref={confirmRef}
             text={"是否删除全部?"} 
             cancelBtnText={"取消"} 
             confirmBtnText={"确定"} 
             handleConfirm={handleConfirmClear}
-          /> */}
+          />
           </div>
       </PlayListWrapper>
     </CSSTransition>

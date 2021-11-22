@@ -6,6 +6,8 @@ import Recommend from '../application/Recommend'
 import Singers from '../application/Singers'
 import Album from '../application/Album'
 import Singer from '../application/Singer/index'
+import Search from '../application/Search/index'
+
 export default [
     {
         path: '/',
@@ -48,6 +50,12 @@ export default [
                         component: Album
                     }
                 ]
+            },
+            {
+                path: "/search",
+                exact: true,
+                key: "search",
+                component: Search
             }
         ]
 
