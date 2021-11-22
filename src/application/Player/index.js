@@ -16,7 +16,7 @@ import { playMode } from '../../api/config';
 import Toast from "./../../baseUI/toast/index";
 import PlayList from './play-list/index';
 import { getLyricRequest } from "../../api/request";
-// import Lyric from './../../api/lyric-parser';
+import Lyric from './../../api/lyric-parser';
 function Player(props) {
   //目前播放时间
   const [currentTime, setCurrentTime] = useState(0);
@@ -53,6 +53,9 @@ function Player(props) {
     changeModeDispatch,//改变mode
     toggleFullScreenDispatch,
   } = props;
+
+
+  
   
   const playList = immutablePlayList.toJS();
   const sequencePlayList = immutableSequencePlayList.toJS();
@@ -78,7 +81,7 @@ function Player(props) {
       });
     });
     togglePlayingDispatch(true);//播放状态
-    // getLyric(current.id);
+    getLyric(current.id);
     setCurrentTime(0);//从头开始播放
     setDuration((current.dt / 1000) | 0);//时长
     // eslint-disable-next-line
@@ -88,35 +91,34 @@ function Player(props) {
     playing ? audioRef.current.play() : audioRef.current.pause();
   }, [playing]);
   
-  // const handleLyric = ({ lineNum, txt }) => {
-  //   if(!currentLyric.current)return;
-  //   currentLineNum.current = lineNum;
-  //   setPlayingLyric(txt);
-  // };
+  const handleLyric = ({ lineNum, txt }) => {
+    if(!currentLyric.current)return;
+    currentLineNum.current = lineNum;
+    setPlayingLyric(txt);
+  };
   
-  // const getLyric = id => {
-  //   let lyric = "";
-  //   if (currentLyric.current) {
-  //     currentLyric.current.stop();
-  //   }
-  //   // 避免songReady恒为false的情况
-  //   getLyricRequest(id)
-  //     .then(data => {
-  //       lyric = data.lrc.lyric;
-  //       if(!lyric) {
-  //         currentLyric.current = null;
-  //         return;
-  //       }
-  //       currentLyric.current = new Lyric(lyric, handleLyric);
-  //       currentLyric.current.play();
-  //       currentLineNum.current = 0;
-  //       currentLyric.current.seek(0);
-  //     })
-  //     .catch(() => {
-  //       songReady.current = true;
-  //       audioRef.current.play();
-  //     });
-  // };
+  const getLyric = id => {
+    let lyric = "";
+    getLyricRequest (id)
+      .then (data => {
+        console.log ('data---', data)
+        lyric = data.lrc.lyric;
+        if (!lyric) {
+          currentLyric.current = null;
+          return;
+        }
+        currentLyric.current = new Lyric (lyric, handleLyric);
+        currentLyric.current.play ();
+        currentLineNum.current = 0;
+        currentLyric.current.seek (0);
+      })
+      .catch (() => {
+        songReady.current = true;
+        audioRef.current.play ();
+      });
+  };
+
+  
 
   const clickPlaying = (e, state) => {
     e.stopPropagation();
