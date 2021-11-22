@@ -1,3 +1,4 @@
+import axios from "_axios@0.24.0@axios";
 import { axiosInstance } from "./config";
 //获取轮播图
 export const getBannerRequest = () => {
@@ -56,5 +57,19 @@ export const getLyricRequest = id => {
 
 
 export const getSongDetailRequest = id => {
-  return axiosInstance.get(`/song/detail?ids=${id}`);
+    return axiosInstance.get(`/song/detail?ids=${id}`);
 };
+
+
+export const getHotKeyWordsRequest = () => {
+    return axiosInstance.get(`/search/hot`)
+}
+
+
+export const getSuggestListRequest  = (query) => {
+    return axiosInstance.get(`/search/suggest?keywords = ${query}`)
+}
+
+export const getResultSongsListRequest = (query) => {
+    return axiosInstance.get(`/search?keywords=${query}`)
+}

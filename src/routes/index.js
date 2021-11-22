@@ -56,6 +56,12 @@ export default [
                 exact: true,
                 key: "search",
                 component: Search
+            },
+            {
+                path: "/album/:id",
+                exact: true,
+                key: "album",
+                component: Album
             }
         ]
 
