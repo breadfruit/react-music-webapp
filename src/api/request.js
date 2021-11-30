@@ -1,14 +1,46 @@
-import axios from "_axios@0.24.0@axios";
+import axios from 'axios';
 import { axiosInstance } from "./config";
+const CancelToken = axios.CancelToken 
+const source = CancelToken.source()
+
 //获取轮播图
 export const getBannerRequest = () => {
-  return axiosInstance.get ('/banner');
-}
-//获取推荐歌单
-export const getRecommendListRequest = () => {
-  return axiosInstance.get ('/personalized');
+  return axiosInstance.get ('/getDigitalAlbumLists');
 }
 
+
+// export const  getBannerRequest = () => {
+//   return axiosInstance.get('/banner', {
+//     cancelToken: source.token
+//   }).catch(function(thrown) {
+//       if(axios.isCancel(thrown)) {
+//           console.log('Request canceled', thrown.message)
+//       } else {
+//           // handle error
+//       }
+//   })
+// }
+
+
+//获取推荐歌单
+export const getRecommendListRequest = () => {
+  return axiosInstance.get ('/getRecommend');
+}
+
+//实现取消发送
+// export const getRecommendListRequest = () => {
+//     return axiosInstance.get('/personalized', {
+//       cancelToken: source.token
+//     }).catch(function(thrown) {
+//         if(axios.isCancel(thrown)) {
+//             console.log('Request canceled', thrown.message)
+//         } else {
+//             // handle error
+//         }
+//     })
+// }
+
+// source.cancel('取消上次请求')
 //获取热门歌手
 //可选参数 : limit: 取出数量 , 默认为 50
 //offset: 偏移数量 , 用于分页 , 如 :( 页数 -1)*50, 其中 50 为 limit 的值 , 默认 
@@ -35,9 +67,24 @@ export const getRankListRequest = () => {
 // 必选参数 : id : 歌单 id
 //可选参数 : s : 歌单最近的 s 个收藏者,默认为8
 export const getAlbumDetailRequest = id => {
-  return axiosInstance.get(`/playlist/detail?id=${id}`);
+  return axiosInstance.get(`/getSongListDetail?disstid=${id}`);
 };
 
+//获取单个歌曲播放链接
+export const getOneMusicPlayerRequest = (mid) => {
+  //例子getMusicPlay/songmid=001wPuVc4ZiMhj
+  return axiosInstance.get(`/getMusicPlay?songmid=${mid}`)
+}
+//获取多个歌曲播放链接
+export const getMoreMusicPlayerRequest = (sonListStr) => {
+  //  return axiosInstance.get(`/getMusicPlay/songmid=${sonListStr}&resType=all`)
+  return axiosInstance.get('/getMusicPlay?songmid='+ sonListStr + '&resType=all')
+} 
+
+//获取歌曲专辑图片
+export const getImageUrlRequest = (id) => {
+  return axiosInstance.get(`/getImageUrl?id=${id}`)
+}
 //获取歌手详情
 export const getSingerInfoRequest = id => {
   return axiosInstance.get(`/artists?id=${id}`);
@@ -72,4 +119,22 @@ export const getSuggestListRequest  = (query) => {
 
 export const getResultSongsListRequest = (query) => {
     return axiosInstance.get(`/search?keywords=${query}`)
+}
+//手机号码登录
+export const getLoginByPhoneRequest = (query) => {
+  return axiosInstance.post(`/login/cellphone`)
+}
+//邮箱密码登录
+export const getLoginByEmailRequest = (query) => {
+  return axiosInstance.post()
+}
+
+//二维码扫码登录
+export const getLoginByQRRequest = () => {
+
+}
+
+//注册
+export const getResigterRequest = () => {
+
 }

@@ -5,10 +5,12 @@ import { ONE_PAGE_COUNT } from '../../api/config';
 import { connect } from 'react-redux';
 import { changePlayList, changeCurrentIndex, changeSequecePlayList } from '../Player/store/actionCreators';
 
+
 const SongsList = React.forwardRef((props, refs)=> {
 
   const [startIndex, setStartIndex] = useState(0);
-
+  
+ 
   const { songs, collectCount, showCollect,loading=false, usePageSplit } = props;
 
   const { musicAnimation } = props;
@@ -24,10 +26,15 @@ const SongsList = React.forwardRef((props, refs)=> {
   }, [loading, startIndex, totalCount]);
 
   const selectItem = (e, index) => {
-    console.log('我是singerlist----', songs)
+
+    console.log('当前播放歌曲的id', songs[index].mid)
+    let songid  = songs[index].mid
+    //修改当前播放列表
     changePlayListDispatch(songs);
+    //加入播放歌单
     changeSequecePlayListDispatch(songs);
-    changeCurrentIndexDispatch(index);
+    //修改当前播放歌曲的id
+    changeCurrentIndexDispatch(songid);
     musicAnimation(e.nativeEvent.clientX, e.nativeEvent.clientY);
   }
 
@@ -39,12 +46,15 @@ const SongsList = React.forwardRef((props, refs)=> {
       if(i >= list.length) break;
       let item = list[i];
       res.push(
+        // 对每一首歌曲提前获取歌曲的播放链接
         <li key={item.id} onClick={(e) => selectItem(e, i)}>
           <span className="index">{i + 1}</span>
           <div className="info">
             <span>{item.name}</span>
             <span>
-              { item.ar ? getName(item.ar): getName(item.artists) } - { item.al ? item.al.name : item.album.name}
+              
+              {/* { item.ar ? getName(item.ar): getName(item.artists) } - { item.al ? item.al.name : item.album.name} */}
+              {getName(item)}
             </span>
           </div>
         </li>

@@ -15,7 +15,7 @@ import { getSongUrl, isEmptyObject, shuffle, findIndex } from "../../api/utils";
 import { playMode } from '../../api/config';
 import Toast from "./../../baseUI/toast/index";
 import PlayList from './play-list/index';
-import { getLyricRequest } from "../../api/request";
+import { getLyricRequest, getOneMusicPlayerRequest } from "../../api/request";
 import Lyric from './../../api/lyric-parser';
 function Player(props) {
   //目前播放时间
@@ -60,6 +60,7 @@ function Player(props) {
   const playList = immutablePlayList.toJS();
   const sequencePlayList = immutableSequencePlayList.toJS();
   const currentSong = immutableCurrentSong.toJS();
+  const [currentMusicPlayer, setCurrentMusicPlayer] = useState('');
 
   useEffect(() => {
     if (
@@ -91,6 +92,22 @@ function Player(props) {
     playing ? audioRef.current.play() : audioRef.current.pause();
   }, [playing]);
   
+
+  useEffect(() => {
+    //先获取歌曲播放链接
+    getOneMusicPlayerRequest(currentIndex.mid).then(res => {
+      console.log('currentIndex', currentIndex);
+      console.log('res----', res)
+      // let data =  res.response.data.playUrl;
+      // if(!data.error) {
+      //   data = data.url;
+      // }else {
+      //   data = data.error
+      // }
+      // setCurrentMusicPlayer(data)
+    })
+  })
+
   const handleLyric = ({ lineNum, txt }) => {
     if(!currentLyric.current)return;
     currentLineNum.current = lineNum;

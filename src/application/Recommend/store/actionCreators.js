@@ -20,7 +20,8 @@ export const changeEnterLoading = (data) => ({
 export const getBannerList = () => {
   return (dispatch) => {
     getBannerRequest().then(data => {
-      const action = changeBannerList(data.banners);
+      const action = changeBannerList(data.response.data.banner);
+      //console.log('data---banner', data.response.data.banner)
       dispatch(action);
     }).catch(() => {
       console.log("轮播图数据传输错误");
@@ -31,7 +32,8 @@ export const getBannerList = () => {
 export const getRecommendList = () => {
   return (dispatch) => {
     getRecommendListRequest().then(data => {
-      dispatch(changeRecommendList(data.result));
+      console.log(data.response.recomPlaylist.data.v_hot)
+      dispatch(changeRecommendList(data.response.recomPlaylist.data.v_hot));
       dispatch(changeEnterLoading(false));
     }).catch(() => {
       console.log("推荐歌单数据传输错误");

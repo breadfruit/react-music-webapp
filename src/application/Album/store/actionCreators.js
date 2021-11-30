@@ -1,5 +1,5 @@
 import { CHANGE_CURRENT_ALBUM, CHANGE_TOTAL_COUNT, CHANGE_PULLUP_LOADING, CHANGE_START_INDEX, CHANGE_ENTER_LOADING } from './constants';
-import { getAlbumDetailRequest } from '../../../api/request';
+import { getAlbumDetailRequest, getOneMusicPlayerRequest } from '../../../api/request';
 import { fromJS } from 'immutable';
 
 const changeCurrentAlbum = (data) => ({
@@ -29,7 +29,8 @@ export const changeStartIndex = (data) => ({
 export const getAlbumList = (id) => {
   return dispatch => {
     getAlbumDetailRequest(id).then(res => {
-      let data = res.playlist;
+      //console.log('详情页面数据---', res.response.cdlist[0].songlist)
+      let data = res.response.cdlist[0];
       dispatch(changeCurrentAlbum(data));
       dispatch(changeEnterLoading(false));
       dispatch(changeStartIndex(0));
@@ -39,3 +40,5 @@ export const getAlbumList = (id) => {
     })
   }
 };
+
+

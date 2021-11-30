@@ -1,4 +1,4 @@
-import React,{useRef} from 'react'
+import React,{useEffect, useRef, useState} from 'react'
 import {
     MiniPlayerContainer
 
@@ -6,6 +6,8 @@ import {
 import { getName } from '../../../api/utils'
 import { CSSTransition } from "react-transition-group";
 import ProgressCircle from '../../../baseUI/progress-circle/index'
+import {getImageUrlRequest } from '../../../api/request'
+
 
 function MiniPlayer (props) {
     const miniPlayerRef = useRef ();
@@ -15,6 +17,15 @@ function MiniPlayer (props) {
         togglePlayList(true);
         e.stopPropagation ();
     }
+    const [currentMusicImage, setCurrentMusicImage] = useState('')
+    useEffect(() => {
+            //获取当前歌曲播放的专辑图片
+    getImageUrlRequest(song.mid).then(res => {
+        let data = res.response.data.imageUrl;
+        console.log('当前播放歌曲的专辑照片---', data)
+        setCurrentMusicImage(data)
+      })
+    })
     return (
         <CSSTransition
             in={!fullScreen} 
@@ -30,7 +41,7 @@ function MiniPlayer (props) {
             <MiniPlayerContainer ref={miniPlayerRef} onClick={() => toggleFullScreen (true)}>
                 <div className="icon">
                     <div className="imgWrapper">
-                        <img className={`play ? ${playing ? "": "pause"} `} src={song.al.picUrl} width="40" height="40" alt="img" />
+                        <img className={`play ? ${playing ? "": "pause"} `} src={currentMusicImage} width="40" height="40" alt="img" />
                     </div>
                 </div>
                 <div className="text">

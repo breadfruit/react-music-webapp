@@ -17,6 +17,8 @@ const RankComponent = lazy(() => import("../application/Rank/"));
 const AlbumComponent = lazy(() => import("../application/Album/"));
 const SingerComponent = lazy(() => import("./../application/Singer/"));
 const SearchComponent = lazy(() => import("./../application/Search/"));
+const LoginComponent = lazy(() => import('./../application/Login/'))
+
 
 export default [
   {
@@ -74,9 +76,17 @@ export default [
             exact: true,
             key: "search",
             component: SuspenseComponent(SearchComponent)
-          }
+          },
+          {
+            path: '/login',
+            exact: true,
+            key: 'login',
+            component: SuspenseComponent(LoginComponent),
+    
+          },
         ]
-      }
+      },
+      
     ]
   }
 ];

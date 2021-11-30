@@ -1,31 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TopDesc, Menu } from './style';
 import SongsList from '../../application/SongList/';
 
 function AlbumDetail(props) {
   const { currentAlbum, pullUpLoading } = props;
 
+  
   const renderTopDesc = () => {
     return (
-      <TopDesc background={currentAlbum.coverImgUrl}>
+      <TopDesc background={currentAlbum.logo}>
         <div className="background">
           <div className="filter"></div>
         </div>
+        {/* 左侧歌单图标和播放数量 */}
         <div className="img_wrapper">
           <div className="decorate"></div>
-          <img src={currentAlbum.coverImgUrl} alt=""/>
+          <img src={currentAlbum.logo} alt=""/>
           <div className="play_count">
             <i className="iconfont play">&#xe885;</i>
-            <span className="count">{Math.floor(currentAlbum.subscribedCount/1000)/10}万</span>
+            {/* <span className="count">{Math.floor(currentAlbum.subscribedCount/1000)/10}万</span> */}
+            <span className="count"> {Math.floor(currentAlbum.visitnum/1000)/10}万</span>
           </div>
         </div>
         <div className="desc_wrapper">
-          <div className="title">{currentAlbum.name}</div>
+          <div className="title">{currentAlbum.dissname}</div>
+          {/* 个人资料 */}
           <div className="person">
             <div className="avatar">
-              <img src={currentAlbum.creator.avatarUrl} alt=""/>
+              <img src={currentAlbum.headurl} alt=""/>
+              {/* <img src={currentAlbum.ifpicurl} alt=""/> */}
             </div>
-            <div className="name">{currentAlbum.creator.nickname}</div>
+            <div className="name">{currentAlbum.nickname || currentAlbum.nick}</div>
           </div>
         </div>
       </TopDesc>
@@ -57,8 +62,8 @@ function AlbumDetail(props) {
   const renderSongList = () => {
     return (
       <SongsList
-        songs={currentAlbum.tracks}
-        collectCount={currentAlbum.subscribedCount}
+        songs={currentAlbum.songlist}
+        collectCount={currentAlbum.visitnum}
         showCollect={true}
         loading={pullUpLoading}
         musicAnimation={props.musicAnimation}

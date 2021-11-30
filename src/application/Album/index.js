@@ -29,9 +29,15 @@ function Album(props) {
   
   let currentAlbumJS = currentAlbum.toJS();
 
+
+  console.log('currentAlbumJS', currentAlbumJS);
+
+
   useEffect(() => {
     getAlbumDataDispatch(id);
   }, [getAlbumDataDispatch, id]);
+
+
 
 
   const handleScroll = useCallback((pos) => {
@@ -41,7 +47,7 @@ function Album(props) {
     if(pos.y < minScrollY) {
       headerDom.style.backgroundColor = style["theme-color"];
       headerDom.style.opacity = Math.min(1, (percent-1)/2);
-      setTitle(currentAlbumJS&&currentAlbumJS.name);
+      setTitle(currentAlbumJS&&currentAlbumJS.dissname);
       setIsMarquee(true);
     } else{
       headerDom.style.backgroundColor = "";
