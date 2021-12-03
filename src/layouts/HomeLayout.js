@@ -12,7 +12,7 @@ function Home(props) {
       <Top>
         <span
           className="iconfont menu"
-          onClick={() => alert("用户中心正在开发中，敬请期待:)")}
+          onClick={() => props.history.push("/login")}
         >
           &#xe65c;
         </span>

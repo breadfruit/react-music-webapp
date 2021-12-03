@@ -1,66 +1,66 @@
 import React, { useEffect } from 'react';
-import Slider from '../../components/slider';
-import RecommendList from '../../components/list';
-import {connect} from 'react-redux'
-import * as actionTypes from './store/actionCreators'
-import Scroll from '../../baseUI/scroll/index'
-import {Content} from './style'
-import Loading from '../../baseUI/loading/index'
+import Slider from '../../components/slider/';
+import { connect } from "react-redux";
+import * as actionTypes from './store/actionCreators';
+import RecommendList from '../../components/list/';
+import Scroll from '../../baseUI/scroll/index';
+import { Content } from './style';
 import { forceCheck } from 'react-lazyload';
-import {renderRoutes} from 'react-router-config'
+import { renderRoutes } from 'react-router-config';
+import { EnterLoading } from './../Singers/style';
+import Loading from '../../baseUI/loading-v2/index';
 
+function Recommend(props){
+  const { bannerList, recommendList, songsCount, enterLoading } = props;
 
-function Recommend (props) {
-
-  const {bannerList, recommendList, enterLoading} = props
   const { getBannerDataDispatch, getRecommendListDataDispatch } = props;
 
-//进行更新视图，初始化
   useEffect(() => {
-    if (!bannerList.size){
-      getBannerDataDispatch ();
+    if(!bannerList.size){
+      getBannerDataDispatch();
     }
-    if (!recommendList.size){
-      getRecommendListDataDispatch ();
+    if(!recommendList.size){
+      getRecommendListDataDispatch();
     }
-  }, [])
+    // eslint-disable-next-line
+  }, []);
 
-  const bannerListJS = bannerList ? bannerList.toJS () : [];
-  const recommendListJS = recommendList ? recommendList.toJS() : []
+  const bannerListJS = bannerList ? bannerList.toJS() : [];
+  const recommendListJS = recommendList ? recommendList.toJS() :[];
 
   return (
-    <Content>
+    <Content play={songsCount}>
       <Scroll className="list" onScroll={forceCheck}>
         <div>
           <Slider bannerList={bannerListJS}></Slider>
           <RecommendList recommendList={recommendListJS}></RecommendList>
         </div>
       </Scroll>
-      {enterLoading? <Loading></Loading>: null}
-      {renderRoutes((props.route.routes))}
+      {enterLoading? <EnterLoading><Loading></Loading></EnterLoading> : null}
+      { renderRoutes(props.route.routes) }
     </Content> 
-  )
+  );
 }
-//输出samrt组件，类似处理业务层
-//告诉父组件需要的state和更新的dispatch
+
+// 映射Redux全局的state到组件的props上
 const mapStateToProps = (state) => ({
-  // 不要在这里将数据 toJS
-  // 不然每次 diff 比对 props 的时候都是不一样的引用，还是导致不必要的重渲染，属于滥用 immutable
-  bannerList: state.getIn (['recommend', 'bannerList']),
-  recommendList: state.getIn (['recommend', 'recommendList']),
+  bannerList: state.getIn(['recommend', 'bannerList']),
+  recommendList: state.getIn(['recommend', 'recommendList']),
+  songsCount: state.getIn(['player', 'playList']).size,
   enterLoading: state.getIn(['recommend', 'enterLoading'])
 });
-
-const mapDispatchProps = (dispatch) => {
+// 映射dispatch到props上
+const mapDispatchToProps = (dispatch) => {
   return {
     getBannerDataDispatch() {
-      //将结果更新视图
-      dispatch(actionTypes.getBannerList())
+      dispatch(actionTypes.getBannerList());
     },
     getRecommendListDataDispatch() {
-      dispatch(actionTypes.getRecommendList())
-    }
-  }
-}
+      dispatch(actionTypes.getRecommendList());
+    },
 
-export default connect(mapStateToProps, mapDispatchProps)(React.memo(Recommend))
+  }
+};
+
+// 将ui组件包装成容器组件
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Recommend));

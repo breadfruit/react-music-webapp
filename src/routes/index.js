@@ -17,8 +17,11 @@ const RankComponent = lazy(() => import("../application/Rank/"));
 const AlbumComponent = lazy(() => import("../application/Album/"));
 const SingerComponent = lazy(() => import("./../application/Singer/"));
 const SearchComponent = lazy(() => import("./../application/Search/"));
-const LoginComponent = lazy(() => import('./../application/Login/'))
-
+const LoginComponent = lazy(() => import('./../application/Login/'));
+const LoginPhoneComponent  = lazy(() => import("./../application/Login/loginMode/phone.js"));
+const LoginEmailComponent  = lazy(() => import("./../application/Login/loginMode/email.js"));
+const LoginQrComponent  = lazy(() => import("./../application/Login/loginMode/qr.js"));
+const ResigterComponent = lazy(() => import("./../application/Resigter/"))
 
 export default [
   {
@@ -78,12 +81,33 @@ export default [
             component: SuspenseComponent(SearchComponent)
           },
           {
-            path: '/login',
-            exact: true,
+            path: '/login/',
             key: 'login',
             component: SuspenseComponent(LoginComponent),
-    
+            routes: [
+              {
+                path: '/login/phone',
+                component: SuspenseComponent(LoginPhoneComponent)
+              },
+              {
+                path: '/login/email',
+                component: SuspenseComponent(LoginEmailComponent)
+              },
+              {
+                path: '/login/qr',
+                component: SuspenseComponent(LoginQrComponent)
+              }
+            ]
           },
+          {
+            path: '/resigter',
+            exact: true,
+            key: 'resigter',
+            component: SuspenseComponent(ResigterComponent),
+          }, 
+          {
+
+          }
         ]
       },
       

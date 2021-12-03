@@ -1,10 +1,15 @@
 import axios from "axios";
 
 export const baseUrl = "http://localhost:3200";
-
+export const myUrl = "http://localhost:4000"
 // axios的实例及拦截器配置
 const axiosInstance = axios.create({
-  baseURL: baseUrl
+  baseURL: baseUrl,
+  withCredentials: true
+});
+const axiosOtherInstance = axios.create({
+  baseURL: myUrl,
+  withCredentials: true,
 });
 
 axiosInstance.interceptors.response.use(
@@ -13,8 +18,15 @@ axiosInstance.interceptors.response.use(
     console.log(err, "网络错误");
   }
 );
+axiosOtherInstance.interceptors.response.use(
+  res => res.data,
+  err => {
+    console.log(err, "网络错误");
+  }
+);
 
-export { axiosInstance };
+export { axiosInstance, axiosOtherInstance };
+
 
 //歌手种类
 export const categoryTypes = [
@@ -79,7 +91,24 @@ export const categoryTypes = [
     key: "4003"
   }
 ];
-
+export const sexTypes = [
+  {
+    name: '全部',
+    key: -100
+  },
+  {
+    name: '男',
+    key: 0
+  },
+  {
+    name: '女',
+    key: 1
+  },
+  {
+    name: '组合',
+    key: 2
+  }
+]
 //歌手首字母
 export const alphaTypes = [
   {
