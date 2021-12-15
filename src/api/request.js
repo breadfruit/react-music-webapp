@@ -1,5 +1,5 @@
 
-import { axiosOtherInstance } from "./config";
+import { axiosOtherInstance, axiosInstance } from "./config";
 // const CancelToken = axios.CancelToken 
 // const source = CancelToken.source()
 
@@ -88,21 +88,7 @@ export const getAlbumDetailRequest = id => {
 };
 
 
-// //获取单个歌曲播放链接
-// export const getOneMusicPlayerRequest = (mid) => {
-//   //例子getMusicPlay/songmid=001wPuVc4ZiMhj
-//   return axiosInstance.get(`/getMusicPlay?songmid=${mid}`)
-// }
-// //获取多个歌曲播放链接
-// export const getMoreMusicPlayerRequest = (sonListStr) => {
-//   //  return axiosInstance.get(`/getMusicPlay/songmid=${sonListStr}&resType=all`)
-//   return axiosInstance.get('/getMusicPlay?songmid='+ sonListStr + '&resType=all')
-// } 
 
-// //获取歌曲专辑图片
-// export const getImageUrlRequest = (id) => {
-//   return axiosOtherInstance.get(`/getImageUrl?id=${id}`)
-// }
 //获取歌手详情
 export const getSingerInfoRequest = id => {
   return axiosOtherInstance.get(`/artists?id=${id}`);
@@ -110,9 +96,6 @@ export const getSingerInfoRequest = id => {
 
 //顶部的高度
 export const HEADER_HEIGHT = 45;
-
-
-
 
 
 //获取歌曲歌词
@@ -142,15 +125,31 @@ export const getResultSongsListRequest = (query) => {
 //邮箱登录
 export const getLoginByEmailRequest = async (email, password) => {
   const res = await axiosOtherInstance.post(`/login?email=${email}&password=${password}`);
-  console.log('邮箱登录----', res)
-  const userInfo = res.data.account;
-  //进行用户信息存入自己的数据库
-  //将cookie登录凭证进行储存
+  if(res.code === 200) {
+    var uid = res.account.id;
+    const res1 = await axiosInstance.get(`/api/user/getuserinfo/${uid}`);
+    console.log('邮箱登录---',res1)
+  }else {
+    console.log('邮箱登录失败')
+  }
 }
 //手机登录
 export const getLoginByPhoneRequest = async (phone, password) => {
-  const res = await axiosOtherInstance.post(`/login/cellphone?phone=${phone}&password=${password}/`);
-  console.log('手机登录--', res)
+
+  var uid
+  //离线搜索
+  const res1 = await axiosInstance.get(`/api/user/getuserinfo/${uid}`);
+  if(res1.code == 0) {
+      
+  }else {
+    //本地找不到用户，先在线获取然后同步到数据库
+    const res2 = await axiosOtherInstance.post(`/login/cellphone?phone=${phone}&password=${password}`);
+    if(res2.loginType) {
+        uid = res2.account.id;
+        const res1 = await axiosInstance.get(`/api/user/getuserinfo/${uid}`);
+    }
+    
+  }
 }
 
 //二维码扫码登录
