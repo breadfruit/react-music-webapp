@@ -29,10 +29,6 @@ function Login(props) {
     props.history.push(`/login/${loginMode}`)
   }
 
-  const handleResigter = () => {
-    props.history.push(`/resigter`)
-  }
-
   return (
     <CSSTransition
       in={show}
@@ -76,7 +72,7 @@ function Login(props) {
         <LoginWrapper>
             <Button
               type="ghost"
-              onClick={() => handleResigter()}
+              onClick={() => handleLogin('register')}
               shape="round"
               size="large"
               className="gap"

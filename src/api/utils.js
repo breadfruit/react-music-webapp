@@ -28,7 +28,17 @@ export const getName = list => {
   return str;
 };
 
-
+// export const getName = item => {
+//   console.log('getname--', item);
+//   let singers = '';
+//   let names = item.singer;
+//   for(let i = 0; i < names.length; i++){
+//       singers += names[i].name 
+//   }
+//   singers = names.length  > 1 ? singers + '/': singers;
+//   let str = singers + '-' + item.album.name;
+//   return str
+// }
 
 export const getCount = (count) => {
   if(count < 0) return;

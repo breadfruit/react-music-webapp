@@ -22,8 +22,6 @@ const LoginPhoneComponent  = lazy(() => import("./../application/Login/loginMode
 const LoginEmailComponent  = lazy(() => import("./../application/Login/loginMode/email.js"));
 const LoginQrComponent  = lazy(() => import("./../application/Login/loginMode/qr.js"));
 const ResigterComponent = lazy(() => import("./../application/Resigter/"))
-const UserinfoComponent = lazy(() => import("../application/Userinfo/"))
-
 
 export default [
   {
@@ -108,10 +106,7 @@ export default [
             component: SuspenseComponent(ResigterComponent),
           }, 
           {
-            path: '/userinfo',
-            exact: true,
-            key: 'userinfo',
-            component: SuspenseComponent(UserinfoComponent)
+
           }
         ]
       },

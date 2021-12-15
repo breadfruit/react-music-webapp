@@ -55,7 +55,7 @@ function LoginPhone(props) {
                 >
                     <Form.Item
                         label="Phone"
-                        name="phone"
+                        name="Phone"
                         rules={[
                             {
                                 required: true,
