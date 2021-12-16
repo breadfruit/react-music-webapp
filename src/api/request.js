@@ -5,7 +5,7 @@ import { axiosOtherInstance, axiosInstance } from "./config";
 
 //获取轮播图
 export const getBannerRequest = () => {
-  return axiosOtherInstance.get("/banner");
+  return axiosInstance.get("/banner");
 };
 
 // export const  getBannerRequest = () => {
@@ -23,7 +23,7 @@ export const getBannerRequest = () => {
 
 //获取推荐歌单
 export const getRecommendListRequest = () => {
-  return axiosOtherInstance.get("/personalized");
+  return axiosInstance.get("/personalized");
 };
 // export const getRecommendListRequest = () => {
 //   return  axiosInstance.get ('/getRecommend');

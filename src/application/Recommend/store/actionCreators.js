@@ -20,7 +20,8 @@ export const changeEnterLoading = (data) => ({
 export const getBannerList = () => {
   return (dispatch) => {
     getBannerRequest().then(data => {
-      const action = changeBannerList(data.banners);
+      console.log('获取轮播图数据', data)
+      const action = changeBannerList(data.result);
       dispatch(action);
     }).catch(() => {
       console.log("轮播图数据传输错误");
