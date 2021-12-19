@@ -34,12 +34,12 @@ function MiniPlayer(props) {
       <MiniPlayerContainer ref={miniPlayerRef} onClick={() => setFullScreen(true)}>
         <div className="icon">
           <div className="imgWrapper" ref={miniWrapperRef}>
-            <img className={`play ${playing ? "": "pause"}`} ref={miniImageRef} src={song.al.picUrl} width="40" height="40" alt="img"/>
+            <img className={`play ${playing ? "": "pause"}`} ref={miniImageRef} src={song.picUrl} width="40" height="40" alt="img"/>
           </div>
         </div>
         <div className="text">
           <h2 className="name">{song.name}</h2>
-          <p className="desc">{getName(song.ar)}</p>
+          <p className="desc">{song.artistName}</p>
         </div>
         <div className="control">
           <ProgressCircle radius={32} percent={percent}>

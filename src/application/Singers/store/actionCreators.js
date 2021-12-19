@@ -56,8 +56,8 @@ export const changePullDownLoading = (data) => ({
 
 export const getHotSingerList = () => {
   return (dispatch) => {
-    getHotSingerListRequest(0).then(res => {
-      const data = res.artists;
+    getHotSingerListRequest(30).then(res => {
+      const data = res.result;
       dispatch(changeSingerList(data));
       dispatch(changeEnterLoading(false));
       dispatch(changePullDownLoading(false));
@@ -90,7 +90,7 @@ export const getSingerList = () => {
     const category = getState().getIn(['singers', 'category']);
     const alpha = getState().getIn(['singers', 'alpha']);
     getSingerListRequest(category, alpha, offset).then(res => {
-      const data = res.artists;
+      const data = res.result;
       dispatch(changeSingerList(data));
       dispatch(changeEnterLoading(false));
       dispatch(changePullDownLoading(false));

@@ -169,7 +169,7 @@ function NormalPlayer(props) {
       <NormalPlayerContainer ref={normalPlayerRef}>
         <div className="background">
           <img
-            src={song.al.picUrl + "?param=300x300"}
+            src={song.picUrl + "?param=300x300"}
             width="100%"
             height="100%"
             alt="歌曲图片"
@@ -182,7 +182,7 @@ function NormalPlayer(props) {
           </div>
           <div className="text">
             <h1 className="title">{song.name}</h1>
-            <h1 className="subtitle">{getName(song.ar)}</h1>
+            <h1 className="subtitle">{song.artistName}</h1>
           </div>
         </Top>
         <Middle ref={cdWrapperRef} onClick={toggleCurrentState}>
@@ -202,7 +202,7 @@ function NormalPlayer(props) {
               <div className="cd">
                 <img
                   className={`image play ${playing? '' : 'pause'}`}
-                  src={song.al.picUrl + "?param=400x400"}
+                  src={song.picUrl + "?param=400x400"}
                   alt=""
                 />
               </div>

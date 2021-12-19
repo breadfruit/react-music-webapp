@@ -20,8 +20,9 @@ export const changeEnterLoading = (data) => ({
 export const getSingerInfo = (id) => {
   return dispatch => {
     getSingerInfoRequest(id).then(data => {
-      dispatch(changeArtist(data.artist));
-      dispatch(changeSongs(data.hotSongs));
+      console.log('歌手详情====', data.result)
+      dispatch(changeArtist(data.result.singerdetail[0]));
+      dispatch(changeSongs(data.result.constsongList));
       dispatch(changeEnterLoading(false));
     })
   }

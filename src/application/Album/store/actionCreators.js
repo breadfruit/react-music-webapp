@@ -29,11 +29,11 @@ export const changeStartIndex = (data) => ({
 export const getAlbumList = (id) => {
   return dispatch => {
     getAlbumDetailRequest(id).then(res => {
-      let data = res.playlist;
+      let data = res.result[0];
       console.log('album--', data)
       dispatch(changeCurrentAlbum(data));
-      // dispatch(changeEnterLoading(false));
-      // dispatch(changeStartIndex(0));
+      dispatch(changeEnterLoading(false));
+      dispatch(changeStartIndex(0));
       // dispatch(changeTotalCount(data.tracks.length))
     }).catch(() => {
       console.log("获取album数据失败!")

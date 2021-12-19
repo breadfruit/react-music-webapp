@@ -11,13 +11,29 @@ export const debounce = (func, delay) => {
   }
 }
 // 处理数据，找出第一个没有歌名的排行榜的索引
+// export const filterIndex = rankList => {
+//   for (let i = 0; i < rankList.length - 1; i++) {
+//     if (rankList[i].tracks.length && !rankList[i + 1].tracks.length) {
+//       return i + 1;
+//     }
+//   }
+// };
+
 export const filterIndex = rankList => {
-  for (let i = 0; i < rankList.length - 1; i++) {
-    if (rankList[i].tracks.length && !rankList[i + 1].tracks.length) {
-      return i + 1;
+  var officialList  = [];
+  var globalList = [];
+  for(let i = 0; i < rankList.length; i++) {
+    // console.log('工具函数---', typeof rankList[i].globalList)
+    if(rankList[i].globalList == '1') {
+      globalList.push(rankList[i])
+    }else {
+      officialList.push(rankList[i])
     }
   }
-};
+  // console.log('[globalList, officialList]-------', [globalList, officialList])
+  return [globalList, officialList]
+  
+}
 
 export const getName = list => {
   let str = "";
@@ -84,7 +100,7 @@ export const formatPlayTime = interval => {
   const minute = (interval / 60) | 0;
   const second = (interval % 60).toString().padStart(2, "0");
   return `${minute}:${second}`;
-};
+}; 
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);

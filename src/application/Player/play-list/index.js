@@ -212,7 +212,7 @@ function PlayList(props) {
                     return (
                       <li className="item" key={item.id} onClick={() => handleChangeCurrentIndex(index)}>
                         { getCurrentIcon(item) }
-                        <span className="text">{item.name} - {getName(item.ar)}</span>
+                        <span className="text">{item.artistName}</span>
                        
                         <span className="like">
                           <i className="iconfont">&#xe601;</i>
