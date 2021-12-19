@@ -5,7 +5,7 @@ import { axiosOtherInstance, axiosInstance } from "./config";
 
 //获取轮播图
 export const getBannerRequest = () => {
-  return axiosOtherInstance.get("/banner");
+  return axiosInstance.get("/banner");
 };
 
 // export const  getBannerRequest = () => {
@@ -23,7 +23,7 @@ export const getBannerRequest = () => {
 
 //获取推荐歌单
 export const getRecommendListRequest = () => {
-  return axiosOtherInstance.get("/personalized");
+  return axiosInstance.get("/personalized");
 };
 // export const getRecommendListRequest = () => {
 //   return  axiosInstance.get ('/getRecommend');
@@ -51,7 +51,7 @@ export const getRecommendListRequest = () => {
 // }
 ////获取热门歌手
 export const getHotSingerListRequest = count => {
-  return axiosOtherInstance.get(`/top/artists?offset=${count}`);
+  return axiosInstance.get(`/top/artists?offset=${count}`);
 };
 // export const getHotSingerListRequest = () => {
 //   return axiosInstance.get('/getSingerList')
@@ -64,7 +64,7 @@ export const getHotSingerListRequest = count => {
 //limit   默认30
 //offset : 偏移数量 如 : 如 :( 页数 -1)*30, 其中 30 为 limit 的值 
 export const getSingerListRequest = (area, initial, offset) => {
-  return axiosOtherInstance.get(`/artist/list?area=${area.toLowerCase()}&initial=${initial}&offset=${offset}`);
+  return axiosInstance.get(`/artist/list?area=${area.toLowerCase()}&initial=${initial}&offset=${offset}`);
 }
 
 //area  地区
@@ -76,7 +76,7 @@ export const getSingerListRequest = (area, initial, offset) => {
 // }
 //获取排行榜
 export const getRankListRequest = () => {
-  return axiosOtherInstance.get(`/toplist/detail`);
+  return axiosInstance.get(`/toplist/detail`);
 };
 
 
@@ -84,14 +84,14 @@ export const getRankListRequest = () => {
 // 必选参数 : id : 歌单 id
 //可选参数 : s : 歌单最近的 s 个收藏者,默认为8
 export const getAlbumDetailRequest = id => {
-  return axiosOtherInstance.get(`/playlist/detail?id=${id}`);
+  return axiosInstance.get(`/playlist/detail?id=${id}`);
 };
 
 
 
 //获取歌手详情
 export const getSingerInfoRequest = id => {
-  return axiosOtherInstance.get(`/artists?id=${id}`);
+  return axiosInstance.get(`/artists?id=${id}`);
 };
 
 //顶部的高度
@@ -100,17 +100,17 @@ export const HEADER_HEIGHT = 45;
 
 //获取歌曲歌词
 export const getLyricRequest = id => {
-  return axiosOtherInstance.get(`/lyric?id=${id}`);
+  return axiosInstance.get(`/lyric?id=${id}`);
 };
 
 
 export const getSongDetailRequest = id => {
-  return axiosOtherInstance.get(`/song/detail?ids=${id}`);
+  return axiosInstance.get(`/song/detail?ids=${id}`);
 };
 
 
 export const getHotKeyWordsRequest = () => {
-  return axiosOtherInstance.get(`/search/hot`)
+  return axiosInstance.get(`/search/hot`)
 }
 
 
@@ -119,7 +119,7 @@ export const getSuggestListRequest = (query) => {
 }
 
 export const getResultSongsListRequest = (query) => {
-  return axiosOtherInstance.get(`/search?keywords=${query}`)
+  return axiosInstance.get(`/search?keywords=${query}`)
 }
 
 //邮箱登录

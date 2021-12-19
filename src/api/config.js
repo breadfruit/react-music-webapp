@@ -5,7 +5,7 @@ export const myUrl = "http://localhost:4000"
 // axios的实例及拦截器配置
 const axiosInstance = axios.create({
   baseURL: baseUrl,
-  withCredentials: true
+  // withCredentials: true
 });
 const axiosOtherInstance = axios.create({
   baseURL: myUrl,

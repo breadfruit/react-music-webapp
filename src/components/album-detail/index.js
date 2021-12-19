@@ -7,13 +7,13 @@ function AlbumDetail(props) {
 
   const renderTopDesc = () => {
     return (
-      <TopDesc background={currentAlbum.coverImgUrl}>
+      <TopDesc background={currentAlbum.picUrl}>
         <div className="background">
           <div className="filter"></div>
         </div>
         <div className="img_wrapper">
           <div className="decorate"></div>
-          <img src={currentAlbum.coverImgUrl} alt=""/>
+          <img src={currentAlbum.picUrl} alt=""/>
           <div className="play_count">
             <i className="iconfont play">&#xe885;</i>
             <span className="count">{Math.floor(currentAlbum.subscribedCount/1000)/10}万</span>
@@ -23,9 +23,9 @@ function AlbumDetail(props) {
           <div className="title">{currentAlbum.name}</div>
           <div className="person">
             <div className="avatar">
-              <img src={currentAlbum.creator.avatarUrl} alt=""/>
+              <img src={currentAlbum.creatorAvatarUrl} alt=""/>
             </div>
-            <div className="name">{currentAlbum.creator.nickname}</div>
+            <div className="name">{currentAlbum.creatorNickName}</div>
           </div>
         </div>
       </TopDesc>
@@ -57,7 +57,7 @@ function AlbumDetail(props) {
   const renderSongList = () => {
     return (
       <SongsList
-        songs={currentAlbum.tracks}
+        songs={currentAlbum.songs}
         collectCount={currentAlbum.subscribedCount}
         showCollect={true}
         loading={pullUpLoading}

@@ -41,7 +41,7 @@ const changeLoading = (data) => ({
 export const getRankList = () => {
     return dispatch => {
         getRankListRequest().then(data => {
-            let list = data && data.list;
+            let list = data.result;
             dispatch(changeRankList(list));
             dispatch(changeLoading(false))
         }).catch(err => {

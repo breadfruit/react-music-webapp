@@ -76,6 +76,7 @@ export default class Lyric {
   }
 
   _findcurLineIndex(time) {
+    console.log('歌词歌词歌词歌词--=-=-=', this.time)
     for (let i = 0; i < this.lines.length; i++) {
       if (time <= this.lines[i].time) {
         return i

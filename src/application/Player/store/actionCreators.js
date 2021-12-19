@@ -100,7 +100,7 @@ export const deleteSong = (data) => ({
 export const getSongDetail = (id) => {
   return (dispatch) => {
     getSongDetailRequest(id).then(data => {
-      let song = data.songs[0];
+      let song = data.result;
       dispatch(insertSong( song));
     })
   }

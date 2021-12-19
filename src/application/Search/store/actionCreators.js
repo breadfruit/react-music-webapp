@@ -26,7 +26,7 @@ export const changeEnterLoading = (data) => ({
 export const getHotKeyWords = () => {
   return dispatch => {
     getHotKeyWordsRequest().then(data => {
-      let list = data.result.hots;
+      let list = data.result;
       dispatch(changeHotKeyWords(list));
     })
   }
@@ -39,7 +39,8 @@ export const getSuggestList = (query) => {
       dispatch(changeSuggestList(res));
     })
     getResultSongsListRequest(query).then(data => {
-      if(!data)return;
+      if (!data) return;
+      console.log('搜索结果=======',data);
       let res = data.result.songs || [];
       dispatch(changeResultSongs(res));
       dispatch(changeEnterLoading(false));

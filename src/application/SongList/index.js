@@ -43,7 +43,8 @@ const SongsList = React.forwardRef((props, refs)=> {
           <div className="info">
             <span>{item.name}</span>
             <span>
-              { item.ar ? getName(item.ar): getName(item.artists) } - { item.al ? item.al.name : item.album.name}
+              {/* { item.ar ? getName(item.ar): getName(item.artists) } - { item.al ? item.al.name : item.album.name} */}
+              {item.artistName}
             </span>
           </div>
         </li>

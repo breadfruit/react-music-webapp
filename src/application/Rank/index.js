@@ -27,8 +27,7 @@ function Rank(props) {
   }, []);
 
   const enterDetail = (detail) => {
-    console.log(detail)
-    props.history.push(`/rank/${detail.id}`)
+    props.history.push(`/rank/${detail.netAlbumId}`)
   }
 // 这是渲染榜单列表函数，传入 global 变量来区分不同的布局方式
 const renderRankList = (list, global) => {
@@ -37,13 +36,13 @@ const renderRankList = (list, global) => {
       {
       list.map ((item) => {
         return (
-          <ListItem key={item.coverImgId} tracks={item.tracks} onClick={() => enterDetail (item)}>
+          <ListItem key={item.coverImgId} onClick={() => enterDetail (item)}>
             <div className="img_wrapper">
-              <img src={item.coverImgUrl} alt=""/>
+              <img src={item.picUrl} alt=""/>
               <div className="decorate"></div>
               <span className="update_frequecy">{item.updateFrequency}</span>
             </div>
-            { renderSongList (item.tracks)  }
+            { renderSongList (item.songs)  }
           </ListItem>
         )
       })
@@ -59,23 +58,27 @@ const renderSongList = (list) => {
   return list.length ? (
     <SongList>
       {
-        list.map((item, index) => {
+        list.slice(0,3).map((item, index) => {
           return (
-            <li key={index}>{index+1}. {item.first} - {item.second}</li>
+            <li key={index}>{item.name}--{item.artistName}</li>
           )
         })
       }
     </SongList>
   ) : null
+
 }
 
 
 
+console.log('rankList', rankList)
 
-
-  let globalStartIndex = filterIndex(rankList);
-  let officialList = rankList.slice(0, globalStartIndex);
-  let globalList = rankList.slice(globalStartIndex);
+  const arr = filterIndex(rankList);
+  const officialList = arr[0]
+  const globalList = arr[1]
+  console.log('globalList', globalList,'officialList', officialList)
+  // let officialList = rankList.slice(0, globalStartIndex);
+  // let globalList = rankList.slice(globalStartIndex);
   let displayStyle = loading ? {"display":"none"}:  {"display": ""};
 
 return (
@@ -83,6 +86,7 @@ return (
     <Scroll>
       <div>
         <h1 className="offical" style={displayStyle}> 官方榜 </h1>
+        
           { renderRankList (officialList) }
         <h1 className="global" style={displayStyle}> 全球榜 </h1>
           { renderRankList (globalList, true) }

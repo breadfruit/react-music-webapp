@@ -73,14 +73,15 @@ function Player(props) {
     return;
     songReady.current = false;
     let current = playList[currentIndex];
+    
     changeCurrentDispatch(current);
     setPreSong(current);
     setPlayingLyric("");
-    audioRef.current.src = getSongUrl(current.id);
+    audioRef.current.src = getSongUrl(current.netSongId);
     audioRef.current.autoplay = true;
     audioRef.current.playbackRate = speed;
     togglePlayingDispatch(true);
-    getLyric(current.id);
+    getLyric(current.netSongId);
     setCurrentTime(0);
     setDuration((current.dt / 1000) | 0);
     // eslint-disable-next-line
@@ -117,7 +118,8 @@ function Player(props) {
     }, 3000);
     getLyricRequest(id)
       .then(data => {
-        lyric = data.lrc && data.lrc.lyric;
+        console.log('当前播放的歌曲geci是', data)
+        lyric =data.result.lyric;
         if(!lyric) {
           currentLyric.current = null;
           return;

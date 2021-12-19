@@ -41,7 +41,7 @@ function Album(props) {
     if(pos.y < minScrollY) {
       headerDom.style.backgroundColor = style["theme-color"];
       headerDom.style.opacity = Math.min(1, (percent-1)/2);
-      setTitle(currentAlbumJS&&currentAlbumJS.name);
+      setTitle(currentAlbumJS &&currentAlbumJS.name);
       setIsMarquee(true);
     } else{
       headerDom.style.backgroundColor = "";
@@ -83,9 +83,11 @@ function Album(props) {
                 pullUpLoading={pullUpLoading}
                 bounceTop={false}
               >
+                
                 <AlbumDetail currentAlbum={currentAlbumJS} pullUpLoading={pullUpLoading} musicAnimation={musicAnimation}></AlbumDetail>
               </Scroll>
             ) : null
+            // console.log(currentAlbumJS[0])
           }
           { enterLoading ?  <EnterLoading><Loading></Loading></EnterLoading> : null}
           <MusicNote ref={musicNoteRef}></MusicNote>
